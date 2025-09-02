@@ -2,247 +2,418 @@
 <html lang="id" class="scroll-smooth">
 
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Zuum Visuals - Portofolio Fotografi Profesional</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Zuum Visuals - Portofolio Fotografi Profesional</title>
 
-  <link rel="icon" href="images/logo/logo.png" type="image/x-icon">
-  <script src="https://cdn.tailwindcss.com"></script>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
-  <style>
-    body {
-      font-family: 'Inter', sans-serif;
-    }
+    <link rel="icon" href="images/logo/logo.png" type="image/x-icon">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
 
-    /* Animasi fade-in sederhana saat halaman dimuat */
-    .fade-in-up {
-      animation: fadeInUp 0.8s ease-out forwards;
-      opacity: 0;
-    }
+        /* Animasi fade-in sederhana saat halaman dimuat */
+        .fade-in-up {
+            animation: fadeInUp 0.8s ease-out forwards;
+            opacity: 0;
+        }
 
-    @keyframes fadeInUp {
-      from {
-        opacity: 0;
-        transform: translateY(20px);
-      }
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
 
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
-    }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
 
-    .fade-in-up-delay-1 {
-      animation-delay: 0.2s;
-    }
+        .fade-in-up-delay-1 {
+            animation-delay: 0.2s;
+        }
 
-    .fade-in-up-delay-2 {
-      animation-delay: 0.4s;
-    }
-  </style>
+        .fade-in-up-delay-2 {
+            animation-delay: 0.4s;
+        }
+
+        /* Gaya untuk Hero Section */
+        #home {
+            background-image: url('https://source.unsplash.com/random/1920x1080/?photography,camera,wedding');
+            background-size: cover;
+            background-position: center;
+            position: relative;
+            color: white;
+            min-height: 70vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding-top: 80px;
+        }
+
+        #home::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: rgba(0, 0, 0, 0.6);
+            z-index: 1;
+        }
+
+        #home .max-w-2xl {
+            position: relative;
+            z-index: 2;
+        }
+
+        /* Gaya dan Animasi untuk Chatbot Baru */
+        #chat-bubble-container {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            z-index: 10;
+            display: none;
+            animation: fadeInChat 1s ease-out forwards;
+        }
+
+        @keyframes fadeInChat {
+            from {
+                opacity: 0;
+                transform: translateX(100px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        .chat-bubble {
+            max-width: 250px;
+            background-color: #333;
+            color: white;
+            padding: 1rem;
+            border-radius: 12px;
+            position: relative;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+            font-size: 0.875rem;
+        }
+
+        .chat-bubble::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            right: 15px;
+            width: 0;
+            height: 0;
+            border-left: 10px solid transparent;
+            border-right: 10px solid transparent;
+            border-top: 10px solid #333;
+        }
+
+        /* Gaya Modal yang Elegansi dan Kehalusan */
+        .modal-overlay {
+            background-color: rgba(0, 0, 0, 0.6);
+            transition: opacity 0.3s ease-in-out;
+        }
+
+        .modal-content {
+            transition: transform 0.3s ease-in-out, opacity 0.3s ease-in-out;
+            transform: scale(0.95);
+            opacity: 0;
+        }
+
+        .modal-overlay.active .modal-content {
+            transform: scale(1);
+            opacity: 1;
+        }
+
+        .modal-close-btn {
+            color: #A0AEC0;
+            transition: color 0.2s ease-in-out;
+        }
+
+        .modal-close-btn:hover {
+            color: #718096;
+        }
+    </style>
 </head>
 
-<body class="bg-gray-50 text-gray-800">
+<body class="bg-white text-gray-800">
 
-  <header class="bg-white/80 backdrop-blur-md shadow-sm fixed w-full top-0 z-50 transition-all duration-300">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      <div class="flex justify-between items-center py-4">
-        <a href="#home" class="text-2xl font-bold text-green-600">Zuum Visuals</a>
-        <nav class="hidden md:flex items-center space-x-8">
-          <a href="#home" class="text-gray-600 hover:text-green-600 transition-colors">Home</a>
-          <a href="#portofolio" class="text-gray-600 hover:text-green-600 transition-colors">Portofolio</a>
-          <a href="#kontak" class="text-gray-600 hover:text-green-600 transition-colors">Kontak</a>
-        </nav>
-        <div class="md:hidden">
-          <button id="menu-btn" type="button" class="text-gray-600 hover:text-green-600 focus:outline-none">
-            <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7" />
-            </svg>
-          </button>
+    <header class="bg-white/80 backdrop-blur-md shadow-sm fixed w-full top-0 z-50 transition-all duration-300">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center py-4">
+                <a href="#home" class="text-2xl font-bold text-gray-900">Zuum Visuals</a>
+                <nav class="hidden md:flex items-center space-x-8">
+                    <a href="#home" class="text-gray-600 hover:text-gray-900 transition-colors">Home</a>
+                    <a href="#portofolio" class="text-gray-600 hover:text-gray-900 transition-colors">Portofolio</a>
+                    <a href="#" id="about-link" class="text-gray-600 hover:text-gray-900 transition-colors">Tentang</a>
+                    <a href="#kontak" class="text-gray-600 hover:text-gray-900 transition-colors">Kontak</a>
+                </nav>
+                <div class="md:hidden">
+                    <button id="menu-btn" type="button" class="text-gray-600 hover:text-gray-900 focus:outline-none">
+                        <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M4 6h16M4 12h16m-7 6h7" />
+                        </svg>
+                    </button>
+                </div>
+            </div>
         </div>
-      </div>
+        <div id="mobile-menu" class="hidden md:hidden">
+            <a href="#home" class="block py-2 px-4 text-sm text-gray-600 hover:bg-gray-100">Home</a>
+            <a href="#portofolio" class="block py-2 px-4 text-sm text-gray-600 hover:bg-gray-100">Portofolio</a>
+            <a href="#" id="about-link-mobile" class="block py-2 px-4 text-sm text-gray-600 hover:bg-gray-100">Tentang</a>
+            <a href="#kontak" class="block py-2 px-4 text-sm text-gray-600 hover:bg-gray-100">Kontak</a>
+        </div>
+    </header>
+
+    <section id="home" class="text-center px-6">
+        <div class="max-w-2xl">
+            <h2 class="text-4xl md:text-6xl font-bold text-white mb-4 fade-in-up">Abadikan Momen Indahmu</h2>
+            <p class="text-gray-200 text-base md:text-lg mb-8 fade-in-up fade-in-up-delay-1">
+                Portofolio fotografi profesional dari Zuum Visuals. Dokumentasikan momen berharga seperti
+                wisuda, pre-wisuda, kegiatan, hingga akad nikah.
+            </p>
+            <a href="#portofolio"
+                class="bg-gray-800 text-white font-semibold py-3 px-8 rounded-lg hover:bg-gray-700 transition-all duration-300 transform hover:scale-105 fade-in-up fade-in-up-delay-2">
+                Lihat Karya Kami
+            </a>
+        </div>
+    </section>
+
+    <main id="portofolio" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 md:py-24 space-y-10">
+
+        <div class="space-y-10">
+            <section id="wisuda">
+                <div class="text-center mb-8">
+                    <h3 class="text-3xl font-bold text-gray-900">Wisuda</h3>
+                    <p class="text-gray-500 mt-1">Momen kelulusan yang tak terlupakan.</p>
+                </div>
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+                    <img src="images/wisuda/w1.jpg" alt="Wisuda"
+                        class="gallery-item h-64 w-full rounded-lg object-cover cursor-pointer grayscale hover:grayscale-0 transition-all duration-500 hover:scale-105">
+                    <img src="images/wisuda/w2.jpg" alt="Wisuda"
+                        class="gallery-item h-64 w-full rounded-lg object-cover cursor-pointer grayscale hover:grayscale-0 transition-all duration-500 hover:scale-105">
+                    <img src="images/wisuda/w3.jpg" alt="Wisuda"
+                        class="gallery-item h-64 w-full rounded-lg object-cover cursor-pointer grayscale hover:grayscale-0 transition-all duration-500 hover:scale-105">
+                    <img src="images/wisuda/w4.jpg" alt="Wisuda"
+                        class="gallery-item h-64 w-full rounded-lg object-cover cursor-pointer grayscale hover:grayscale-0 transition-all duration-500 hover:scale-105">
+                </div>
+            </section>
+
+            <section id="prewisuda">
+                <div class="text-center mb-8">
+                    <h3 class="text-3xl font-bold text-gray-900">Pre-Wisuda</h3>
+                    <p class="text-gray-500 mt-1">Sesi foto kasual dan formal sebelum hari kelulusan.</p>
+                </div>
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+                    <img src="images/pre-wisuda/p1.jpg" alt="Pre Wisuda"
+                        class="gallery-item h-64 w-full rounded-lg object-cover cursor-pointer grayscale hover:grayscale-0 transition-all duration-500 hover:scale-105">
+                    <img src="images/pre-wisuda/p2.jpg" alt="Pre Wisuda"
+                        class="gallery-item h-64 w-full rounded-lg object-cover cursor-pointer grayscale hover:grayscale-0 transition-all duration-500 hover:scale-105">
+                    <img src="images/pre-wisuda/p3.jpg" alt="Pre Wisuda"
+                        class="gallery-item h-64 w-full rounded-lg object-cover cursor-pointer grayscale hover:grayscale-0 transition-all duration-500 hover:scale-105">
+                    <img src="images/pre-wisuda/p4.jpg" alt="Pre Wisuda"
+                        class="gallery-item h-64 w-full rounded-lg object-cover cursor-pointer grayscale hover:grayscale-0 transition-all duration-500 hover:scale-105">
+                    <img src="images/pre-wisuda/p5.jpg" alt="Pre Wisuda"
+                        class="gallery-item h-64 w-full rounded-lg object-cover cursor-pointer grayscale hover:grayscale-0 transition-all duration-500 hover:scale-105">
+                    <img src="images/pre-wisuda/p6.jpg" alt="Pre Wisuda"
+                        class="gallery-item h-64 w-full rounded-lg object-cover cursor-pointer grayscale hover:grayscale-0 transition-all duration-500 hover:scale-105">
+                    <img src="images/pre-wisuda/p7.jpg" alt="Pre Wisuda"
+                        class="gallery-item h-64 w-full rounded-lg object-cover cursor-pointer grayscale hover:grayscale-0 transition-all duration-500 hover:scale-105">
+                    <img src="images/pre-wisuda/p8.jpg" alt="Pre Wisuda"
+                        class="gallery-item h-64 w-full rounded-lg object-cover cursor-pointer grayscale hover:grayscale-0 transition-all duration-500 hover:scale-105">
+                </div>
+            </section>
+
+            <section id="kegiatan">
+                <div class="text-center mb-8">
+                    <h3 class="text-3xl font-bold text-gray-900">Kegiatan</h3>
+                    <p class="text-gray-500 mt-1">Dokumentasi acara, seminar, atau gathering.</p>
+                </div>
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+                    <img src="images/kegiatan/k10.jpg" alt="Kegiatan"
+                        class="gallery-item h-64 w-full rounded-lg object-cover cursor-pointer grayscale hover:grayscale-0 transition-all duration-500 hover:scale-105">
+                    <img src="images/kegiatan/k3.jpg" alt="Kegiatan"
+                        class="gallery-item h-64 w-full rounded-lg object-cover cursor-pointer grayscale hover:grayscale-0 transition-all duration-500 hover:scale-105">
+                    <img src="images/kegiatan/k4.jpg" alt="Kegiatan"
+                        class="gallery-item h-64 w-full rounded-lg object-cover cursor-pointer grayscale hover:grayscale-0 transition-all duration-500 hover:scale-105">
+                    <img src="images/kegiatan/k5.jpg" alt="Kegiatan"
+                        class="gallery-item h-64 w-full rounded-lg object-cover cursor-pointer grayscale hover:grayscale-0 transition-all duration-500 hover:scale-105">
+                    <img src="images/kegiatan/k6.jpg" alt="Kegiatan"
+                        class="gallery-item h-64 w-full rounded-lg object-cover cursor-pointer grayscale hover:grayscale-0 transition-all duration-500 hover:scale-105">
+                    <img src="images/kegiatan/k7.jpg" alt="Kegiatan"
+                        class="gallery-item h-64 w-full rounded-lg object-cover cursor-pointer grayscale hover:grayscale-0 transition-all duration-500 hover:scale-105">
+                    <img src="images/kegiatan/k8.jpg" alt="Kegiatan"
+                        class="gallery-item h-64 w-full rounded-lg object-cover cursor-pointer grayscale hover:grayscale-0 transition-all duration-500 hover:scale-105">
+                    <img src="images/kegiatan/k9.jpg" alt="Kegiatan"
+                        class="gallery-item h-64 w-full rounded-lg object-cover cursor-pointer grayscale hover:grayscale-0 transition-all duration-500 hover:scale-105">
+                </div>
+            </section>
+
+            <section id="akad">
+                <div class="text-center mb-8">
+                    <h3 class="text-3xl font-bold text-gray-900">Akad Nikah</h3>
+                    <p class="text-gray-500 mt-1">Merekam janji suci dalam bingkai yang abadi.</p>
+                </div>
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+                    <img src="images/akad/a1.jpg" alt="Akad"
+                        class="gallery-item h-64 w-full rounded-lg object-cover cursor-pointer grayscale hover:grayscale-0 transition-all duration-500 hover:scale-105">
+                    <img src="images/akad/a2.jpg" alt="Akad"
+                        class="gallery-item h-64 w-full rounded-lg object-cover cursor-pointer grayscale hover:grayscale-0 transition-all duration-500 hover:scale-105">
+                    <img src="images/akad/a3.jpg" alt="Akad"
+                        class="gallery-item h-64 w-full rounded-lg object-cover cursor-pointer grayscale hover:grayscale-0 transition-all duration-500 hover:scale-105">
+                    <img src="images/akad/a4.jpg" alt="Akad"
+                        class="gallery-item h-64 w-full rounded-lg object-cover cursor-pointer grayscale hover:grayscale-0 transition-all duration-500 hover:scale-105">
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <footer id="kontak" class="bg-gray-900 text-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 text-center">
+            <h4 class="text-2xl font-bold mb-2">Tertarik Mengabadikan Momen?</h4>
+            <p class="text-gray-400 mb-6 max-w-md mx-auto">Hubungi kami melalui platform di bawah ini untuk konsultasi
+                dan
+                pemesanan.</p>
+            <div class="flex justify-center items-center space-x-6 mb-8">
+                <a href="https://wa.me/085798957292" target="_blank"
+                    class="text-gray-300 hover:text-white transition-colors" aria-label="WhatsApp">
+                    <svg class="w-8 h-8" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                        <path
+                            d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91C2.13 13.66 2.59 15.36 3.45 16.86L2.05 22L7.31 20.62C8.75 21.41 10.37 21.82 12.04 21.82C17.5 21.82 21.95 17.37 21.95 11.91C21.95 6.45 17.5 2 12.04 2M12.04 3.67C16.56 3.67 20.28 7.38 20.28 11.91C20.28 16.44 16.56 20.15 12.04 20.15C10.56 20.15 9.14 19.78 7.9 19.09L7.54 18.88L4.32 19.8L5.26 16.68L5.05 16.31C4.3 15.05 3.8 13.53 3.8 11.91C3.8 7.38 7.52 3.67 12.04 3.67M16.57 14.45C16.32 14.32 15.12 13.75 14.9 13.66C14.68 13.58 14.53 13.53 14.39 13.78C14.24 14.03 13.77 14.6 13.65 14.75C13.52 14.91 13.39 14.93 13.14 14.8C12.89 14.68 12.08 14.41 11.11 13.56C10.35 12.9 9.83 12.06 9.71 11.84C9.58 11.61 9.73 11.47 9.86 11.35C9.97 11.24 10.11 11.06 10.26 10.9C10.41 10.74 10.46 10.61 10.61 10.36C10.76 10.11 10.71 9.91 10.63 9.79C10.56 9.67 10.11 8.53 9.91 8.03C9.72 7.54 9.53 7.61 9.39 7.61C9.25 7.61 9.1 7.61 8.96 7.61C8.81 7.61 8.56 7.66 8.34 7.89C8.11 8.11 7.59 8.58 7.59 9.7C7.59 10.82 8.36 11.9 8.51 12.08C8.66 12.25 10.12 14.53 12.39 15.46C13.06 15.74 13.54 15.9 13.92 16.03C14.51 16.2 14.99 16.18 15.34 16.12C15.74 16.05 16.69 15.49 16.89 14.94C17.09 14.39 17.09 13.94 17.02 13.82C16.94 13.69 16.82 13.57 16.57 14.45Z" />
+                    </svg>
+                </a>
+
+                <a href="https://instagram.com/zuum.visuals" target="_blank"
+                    class="text-gray-300 hover:text-white transition-colors" aria-label="Instagram">
+                    <svg class="w-8 h-8" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                        <path
+                            d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.85s-.012 3.584-.07 4.85c-.148 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07s-3.584-.012-4.85-.07c-3.252-.148-4.771-1.691-4.919-4.919-.058-1.265-.069-1.645-.069-4.85s.012-3.584.07-4.85c.148-3.225 1.664-4.771 4.919-4.919 1.266-.058 1.644-.07 4.85-.07zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.072-4.948-.072zM12 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.162 6.162 6.162 6.162-2.759 6.162-6.162-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4s1.791-4 4-4 4 1.79 4 4-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44 1.441-.645 1.441-1.44-.645-1.44-1.441-1.44z" />
+                    </svg>
+                </a>
+            </div>
+            <p class="text-gray-500 text-sm">&copy; 2025 Zuum Visuals. All Rights Reserved.</p>
+        </div>
+    </footer>
+
+    <div id="image-modal"
+        class="fixed inset-0 modal-overlay flex justify-center items-center z-[100] hidden p-4">
+        <div class="modal-content relative flex justify-center items-center h-full w-full">
+            <img id="modal-img" src="" alt="Tampilan diperbesar" class="max-w-full max-h-full object-contain rounded-lg shadow-xl">
+            <button id="close-image-modal" class="absolute top-4 right-4 text-4xl font-bold modal-close-btn">&times;</button>
+        </div>
     </div>
-    <div id="mobile-menu" class="hidden md:hidden">
-      <a href="#home" class="block py-2 px-4 text-sm text-gray-600 hover:bg-green-50">Home</a>
-      <a href="#portofolio" class="block py-2 px-4 text-sm text-gray-600 hover:bg-green-50">Portofolio</a>
-      <a href="#kontak" class="block py-2 px-4 text-sm text-gray-600 hover:bg-green-50">Kontak</a>
+
+    <div id="about-modal"
+        class="fixed inset-0 modal-overlay flex justify-center items-center z-[100] hidden p-4">
+        <div class="bg-white p-8 rounded-lg max-w-lg w-full text-center relative modal-content shadow-xl">
+            <button id="close-about-modal"
+                class="absolute top-4 right-4 text-3xl font-bold modal-close-btn">&times;</button>
+            <h3 class="text-3xl font-bold text-gray-900 mb-4">Tentang Zuum Visuals</h3>
+            <p class="text-gray-600 mb-4">
+                Zuum Visuals adalah penyedia jasa fotografi profesional yang berlokasi di <b>Lamongan, Jawa Timur.</b>
+                Kami berkomitmen untuk mengabadikan setiap momen spesial Anda dengan hasil yang artistik dan tak terlupakan.
+            </p>
+            <p class="font-semibold text-gray-700 mb-2">Layanan Kami:</p>
+            <ul class="list-disc list-inside text-gray-600 text-left w-fit mx-auto">
+                <li>Fotografi Wisuda</li>
+                <li>Pre-Wisuda & Dokumentasi Kampus</li>
+                <li>Dokumentasi Acara/Kegiatan</li>
+                <li>Fotografi Akad Nikah</li>
+            </ul>
+        </div>
     </div>
-  </header>
 
-<section id="home" class="flex flex-col justify-center items-center text-center bg-white px-6 pt-32 pb-16">
-    <div class="max-w-2xl">
-      <h2 class="text-4xl md:text-6xl font-bold text-gray-900 mb-4 fade-in-up">Abadikan Momen Indahmu</h2>
-      <p class="text-gray-600 text-base md:text-lg mb-8 fade-in-up fade-in-up-delay-1">
-        Portofolio fotografi profesional dari Zuum Visuals. Dokumentasikan momen berharga seperti wisuda, pre-wisuda,
-        kegiatan, hingga akad nikah dengan sentuhan sinematik.
-      </p>
-      <a href="#portofolio"
-        class="bg-green-500 text-white font-semibold py-3 px-8 rounded-lg shadow-lg hover:bg-green-600 transition-all duration-300 transform hover:scale-105 fade-in-up fade-in-up-delay-2">
-        Lihat Portofolio
-      </a>
+    <div id="chat-bubble-container">
+        <div class="chat-bubble">
+            Klik foto untuk melihat detailnya ya!
+        </div>
     </div>
-  </section>
 
-  <main id="portofolio" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 md:py-24 space-y-10">
 
-    <div class="space-y-10">
+    <script>
+        // Mobile Menu Toggle
+        const menuBtn = document.getElementById('menu-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
+        menuBtn.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+        });
 
-      <section id="wisuda">
-        <div class="text-center mb-8">
-          <h3 class="text-3xl font-bold text-gray-900">Wisuda</h3>
-          <p class="text-gray-500 mt-1">Momen kelulusan yang tak terlupakan.</p>
-        </div>
-        <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
-          <img src="images/wisuda/w1.jpg" alt="Wisuda"
-            class="gallery-item h-64 w-full rounded-lg object-cover cursor-pointer grayscale hover:grayscale-0 transition-all duration-500 hover:scale-105">
-          <img src="images/wisuda/w2.jpg" alt="Wisuda"
-            class="gallery-item h-64 w-full rounded-lg object-cover cursor-pointer grayscale hover:grayscale-0 transition-all duration-500 hover:scale-105">
-          <img src="images/wisuda/w3.jpg" alt="Wisuda"
-            class="gallery-item h-64 w-full rounded-lg object-cover cursor-pointer grayscale hover:grayscale-0 transition-all duration-500 hover:scale-105">
-          <img src="images/wisuda/w4.jpg" alt="Wisuda"
-            class="gallery-item h-64 w-full rounded-lg object-cover cursor-pointer grayscale hover:grayscale-0 transition-all duration-500 hover:scale-105">
-        </div>
-      </section>
+        // Fungsi generic untuk membuka modal
+        function openModal(modalElement) {
+            modalElement.classList.remove('hidden');
+            setTimeout(() => {
+                modalElement.classList.add('active'); // Memicu transisi CSS
+            }, 10);
+        }
 
-      <section id="prewisuda">
-        <div class="text-center mb-8">
-          <h3 class="text-3xl font-bold text-gray-900">Pre-Wisuda</h3>
-          <p class="text-gray-500 mt-1">Sesi foto kasual dan formal sebelum hari kelulusan.</p>
-        </div>
-        <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
-          <img src="images/pre-wisuda/p1.jpg" alt="Pre Wisuda"
-            class="gallery-item h-64 w-full rounded-lg object-cover cursor-pointer grayscale hover:grayscale-0 transition-all duration-500 hover:scale-105">
-          <img src="images/pre-wisuda/p2.jpg" alt="Pre Wisuda"
-            class="gallery-item h-64 w-full rounded-lg object-cover cursor-pointer grayscale hover:grayscale-0 transition-all duration-500 hover:scale-105">
-          <img src="images/pre-wisuda/p3.jpg" alt="Pre Wisuda"
-            class="gallery-item h-64 w-full rounded-lg object-cover cursor-pointer grayscale hover:grayscale-0 transition-all duration-500 hover:scale-105">
-          <img src="images/pre-wisuda/p4.jpg" alt="Pre Wisuda"
-            class="gallery-item h-64 w-full rounded-lg object-cover cursor-pointer grayscale hover:grayscale-0 transition-all duration-500 hover:scale-105">
-          <img src="images/pre-wisuda/p5.jpg" alt="Pre Wisuda"
-            class="gallery-item h-64 w-full rounded-lg object-cover cursor-pointer grayscale hover:grayscale-0 transition-all duration-500 hover:scale-105">
-          <img src="images/pre-wisuda/p6.jpg" alt="Pre Wisuda"
-            class="gallery-item h-64 w-full rounded-lg object-cover cursor-pointer grayscale hover:grayscale-0 transition-all duration-500 hover:scale-105">
-          <img src="images/pre-wisuda/p7.jpg" alt="Pre Wisuda"
-            class="gallery-item h-64 w-full rounded-lg object-cover cursor-pointer grayscale hover:grayscale-0 transition-all duration-500 hover:scale-105">
-          <img src="images/pre-wisuda/p8.jpg" alt="Pre Wisuda"
-            class="gallery-item h-64 w-full rounded-lg object-cover cursor-pointer grayscale hover:grayscale-0 transition-all duration-500 hover:scale-105">
-        </div>
-      </section>
+        // Fungsi generic untuk menutup modal
+        function closeModal(modalElement) {
+            modalElement.classList.remove('active');
+            setTimeout(() => {
+                modalElement.classList.add('hidden');
+            }, 300);
+        }
 
-      <section id="kegiatan">
-        <div class="text-center mb-8">
-          <h3 class="text-3xl font-bold text-gray-900">Kegiatan</h3>
-          <p class="text-gray-500 mt-1">Dokumentasi acara, seminar, atau gathering.</p>
-        </div>
-        <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
-          <img src="images/kegiatan/k10.jpg" alt="Kegiatan"
-            class="gallery-item h-64 w-full rounded-lg object-cover cursor-pointer grayscale hover:grayscale-0 transition-all duration-500 hover:scale-105">
-          <img src="images/kegiatan/k3.jpg" alt="Kegiatan"
-            class="gallery-item h-64 w-full rounded-lg object-cover cursor-pointer grayscale hover:grayscale-0 transition-all duration-500 hover:scale-105">
-          <img src="images/kegiatan/k4.jpg" alt="Kegiatan"
-            class="gallery-item h-64 w-full rounded-lg object-cover cursor-pointer grayscale hover:grayscale-0 transition-all duration-500 hover:scale-105">
-          <img src="images/kegiatan/k5.jpg" alt="Kegiatan"
-            class="gallery-item h-64 w-full rounded-lg object-cover cursor-pointer grayscale hover:grayscale-0 transition-all duration-500 hover:scale-105">
-          <img src="images/kegiatan/k6.jpg" alt="Kegiatan"
-            class="gallery-item h-64 w-full rounded-lg object-cover cursor-pointer grayscale hover:grayscale-0 transition-all duration-500 hover:scale-105">
-          <img src="images/kegiatan/k7.jpg" alt="Kegiatan"
-            class="gallery-item h-64 w-full rounded-lg object-cover cursor-pointer grayscale hover:grayscale-0 transition-all duration-500 hover:scale-105">
-          <img src="images/kegiatan/k8.jpg" alt="Kegiatan"
-            class="gallery-item h-64 w-full rounded-lg object-cover cursor-pointer grayscale hover:grayscale-0 transition-all duration-500 hover:scale-105">
-          <img src="images/kegiatan/k9.jpg" alt="Kegiatan"
-            class="gallery-item h-64 w-full rounded-lg object-cover cursor-pointer grayscale hover:grayscale-0 transition-all duration-500 hover:scale-105">
-        </div>
-      </section>
+        // Logika untuk Modal Gambar
+        const imageModal = document.getElementById('image-modal');
+        const modalImg = document.getElementById('modal-img');
+        const closeImageModalBtn = document.getElementById('close-image-modal');
+        const galleryItems = document.querySelectorAll('.gallery-item');
 
-      <section id="akad">
-        <div class="text-center mb-8">
-          <h3 class="text-3xl font-bold text-gray-900">Akad Nikah</h3>
-          <p class="text-gray-500 mt-1">Merekam janji suci dalam bingkai yang abadi.</p>
-        </div>
-        <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
-          <img src="images/akad/a1.jpg" alt="Akad"
-            class="gallery-item h-64 w-full rounded-lg object-cover cursor-pointer grayscale hover:grayscale-0 transition-all duration-500 hover:scale-105">
-          <img src="images/akad/a2.jpg" alt="Akad"
-            class="gallery-item h-64 w-full rounded-lg object-cover cursor-pointer grayscale hover:grayscale-0 transition-all duration-500 hover:scale-105">
-          <img src="images/akad/a3.jpg" alt="Akad"
-            class="gallery-item h-64 w-full rounded-lg object-cover cursor-pointer grayscale hover:grayscale-0 transition-all duration-500 hover:scale-105">
-          <img src="images/akad/a4.jpg" alt="Akad"
-            class="gallery-item h-64 w-full rounded-lg object-cover cursor-pointer grayscale hover:grayscale-0 transition-all duration-500 hover:scale-105">
-        </div>
-      </section>
+        galleryItems.forEach(item => {
+            item.addEventListener('click', () => {
+                modalImg.src = item.src;
+                openModal(imageModal);
+            });
+        });
 
-    </div>
-  </main>
+        closeImageModalBtn.addEventListener('click', () => closeModal(imageModal));
+        imageModal.addEventListener('click', (e) => {
+            if (e.target === imageModal) {
+                closeModal(imageModal);
+            }
+        });
 
-  <footer id="kontak" class="bg-gray-900 text-white">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 text-center">
-      <h4 class="text-2xl font-bold mb-2">Tertarik Mengabadikan Momen?</h4>
-      <p class="text-gray-400 mb-6 max-w-md mx-auto">Hubungi kami melalui platform di bawah ini untuk konsultasi dan
-        pemesanan.</p>
-      <div class="flex justify-center items-center space-x-6 mb-8">
-        <a href="https://wa.me/085798957292" target="_blank"
-          class="text-gray-300 hover:text-green-400 transition-colors" aria-label="WhatsApp">
-          <svg class="w-8 h-8" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-            <path
-              d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91C2.13 13.66 2.59 15.36 3.45 16.86L2.05 22L7.31 20.62C8.75 21.41 10.37 21.82 12.04 21.82C17.5 21.82 21.95 17.37 21.95 11.91C21.95 6.45 17.5 2 12.04 2M12.04 3.67C16.56 3.67 20.28 7.38 20.28 11.91C20.28 16.44 16.56 20.15 12.04 20.15C10.56 20.15 9.14 19.78 7.9 19.09L7.54 18.88L4.32 19.8L5.26 16.68L5.05 16.31C4.3 15.05 3.8 13.53 3.8 11.91C3.8 7.38 7.52 3.67 12.04 3.67M16.57 14.45C16.32 14.32 15.12 13.75 14.9 13.66C14.68 13.58 14.53 13.53 14.39 13.78C14.24 14.03 13.77 14.6 13.65 14.75C13.52 14.91 13.39 14.93 13.14 14.8C12.89 14.68 12.08 14.41 11.11 13.56C10.35 12.9 9.83 12.06 9.71 11.84C9.58 11.61 9.73 11.47 9.86 11.35C9.97 11.24 10.11 11.06 10.26 10.9C10.41 10.74 10.46 10.61 10.61 10.36C10.76 10.11 10.71 9.91 10.63 9.79C10.56 9.67 10.11 8.53 9.91 8.03C9.72 7.54 9.53 7.61 9.39 7.61C9.25 7.61 9.1 7.61 8.96 7.61C8.81 7.61 8.56 7.66 8.34 7.89C8.11 8.11 7.59 8.58 7.59 9.7C7.59 10.82 8.36 11.9 8.51 12.08C8.66 12.25 10.12 14.53 12.39 15.46C13.06 15.74 13.54 15.9 13.92 16.03C14.51 16.2 14.99 16.18 15.34 16.12C15.74 16.05 16.69 15.49 16.89 14.94C17.09 14.39 17.09 13.94 17.02 13.82C16.94 13.69 16.82 13.57 16.57 14.45Z" />
-          </svg>
-        </a>
+        // Logika untuk Modal Tentang
+        const aboutModal = document.getElementById('about-modal');
+        const aboutLink = document.getElementById('about-link');
+        const aboutLinkMobile = document.getElementById('about-link-mobile');
+        const closeAboutModalBtn = document.getElementById('close-about-modal');
 
-        <a href="https://instagram.com/zuum.visuals" target="_blank"
-          class="text-gray-300 hover:text-green-400 transition-colors" aria-label="Instagram">
-          <svg class="w-8 h-8" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-            <path
-              d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.85s-.012 3.584-.07 4.85c-.148 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07s-3.584-.012-4.85-.07c-3.252-.148-4.771-1.691-4.919-4.919-.058-1.265-.069-1.645-.069-4.85s.012-3.584.07-4.85c.148-3.225 1.664-4.771 4.919-4.919 1.266-.058 1.644-.07 4.85-.07zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.072-4.948-.072zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.162 6.162 6.162 6.162-2.759 6.162-6.162-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4s1.791-4 4-4 4 1.79 4 4-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44 1.441-.645 1.441-1.44-.645-1.44-1.441-1.44z" />
-          </svg>
-        </a>
-      </div>
-      <p class="text-gray-500 text-sm">&copy; 2025 Zuum Visuals. All Rights Reserved.</p>
-    </div>
-  </footer>
+        const openAboutModalHandler = (e) => {
+            e.preventDefault();
+            openModal(aboutModal);
+            mobileMenu.classList.add('hidden');
+        };
 
-  <div id="image-modal"
-    class="fixed inset-0 bg-black bg-opacity-80 backdrop-blur-sm flex justify-center items-center z-[100] hidden p-4">
-    <img id="modal-img" src="" alt="Tampilan diperbesar" class="max-w-full max-h-full object-contain rounded-lg">
-    <button id="close-modal" class="absolute top-4 right-4 text-white text-4xl font-bold">&times;</button>
-  </div>
+        aboutLink.addEventListener('click', openAboutModalHandler);
+        aboutLinkMobile.addEventListener('click', openAboutModalHandler);
 
-  <script>
-    // Mobile Menu Toggle
-    const menuBtn = document.getElementById('menu-btn');
-    const mobileMenu = document.getElementById('mobile-menu');
-    menuBtn.addEventListener('click', () => {
-      mobileMenu.classList.toggle('hidden');
-    });
+        closeAboutModalBtn.addEventListener('click', () => closeModal(aboutModal));
+        aboutModal.addEventListener('click', (e) => {
+            if (e.target === aboutModal) {
+                closeModal(aboutModal);
+            }
+        });
 
-    // Image Modal Logic
-    const modal = document.getElementById('image-modal');
-    const modalImg = document.getElementById('modal-img');
-    const closeModalBtn = document.getElementById('close-modal');
-    const galleryItems = document.querySelectorAll('.gallery-item');
-
-    galleryItems.forEach(item => {
-      item.addEventListener('click', () => {
-        modal.classList.remove('hidden');
-        modalImg.src = item.src;
-      });
-    });
-
-    const closeModal = () => {
-      modal.classList.add('hidden');
-    }
-
-    closeModalBtn.addEventListener('click', closeModal);
-
-    // Klik di luar gambar untuk menutup modal
-    modal.addEventListener('click', (e) => {
-      if (e.target.id !== 'modal-img') {
-        closeModal();
-      }
-    });
-
-  </script>
+        // Animasi Gelembung Chatbot
+        window.addEventListener('load', () => {
+            const chatBubbleContainer = document.getElementById('chat-bubble-container');
+            setTimeout(() => {
+                chatBubbleContainer.style.display = 'block';
+            }, 2000);
+        });
+    </script>
 
 </body>
 
