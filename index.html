@@ -320,7 +320,7 @@
                 class="absolute top-4 right-4 text-3xl font-bold modal-close-btn">&times;</button>
             <h3 class="text-3xl font-bold text-gray-900 mb-4">Tentang Zuum Visuals</h3>
             <p class="text-gray-600 mb-4">
-                Zuum Visuals adalah penyedia jasa fotografi profesional yang berlokasi di <b>Lamongan, Jawa Timur.</b>
+                Zuum Visuals adalah penyedia jasa fotografi profesional yang berlokasi di **Lamongan, Jawa Timur**.
                 Kami berkomitmen untuk mengabadikan setiap momen spesial Anda dengan hasil yang artistik dan tak terlupakan.
             </p>
             <p class="font-semibold text-gray-700 mb-2">Layanan Kami:</p>
@@ -378,11 +378,16 @@
         });
 
         closeImageModalBtn.addEventListener('click', () => closeModal(imageModal));
+        
+        // MENUTUP MODAL SAAT KLIK AREA LUAR
         imageModal.addEventListener('click', (e) => {
             if (e.target === imageModal) {
                 closeModal(imageModal);
             }
         });
+        
+        // BARIS BARU: MENUTUP MODAL SAAT KLIK FOTONYA LANGSUNG
+        modalImg.addEventListener('click', () => closeModal(imageModal));
 
         // Logika untuk Modal Tentang
         const aboutModal = document.getElementById('about-modal');
