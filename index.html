@@ -16,7 +16,6 @@
             font-family: 'Inter', sans-serif;
         }
 
-        /* Animasi fade-in sederhana saat halaman dimuat */
         .fade-in-up {
             animation: fadeInUp 0.8s ease-out forwards;
             opacity: 0;
@@ -42,9 +41,8 @@
             animation-delay: 0.4s;
         }
 
-        /* Gaya untuk Hero Section */
         #home {
-            background-image: url('https://source.unsplash.com/random/1920x1080/?photography,camera,wedding');
+            background-image: url('https://source.unsplash.com/random/1920x1080/?photography,camera,learning');
             background-size: cover;
             background-position: center;
             position: relative;
@@ -72,52 +70,6 @@
             z-index: 2;
         }
 
-        /* Gaya dan Animasi untuk Chatbot Baru */
-        #chat-bubble-container {
-            position: fixed;
-            bottom: 20px;
-            right: 20px;
-            z-index: 10;
-            display: none;
-            animation: fadeInChat 1s ease-out forwards;
-        }
-
-        @keyframes fadeInChat {
-            from {
-                opacity: 0;
-                transform: translateX(100px);
-            }
-
-            to {
-                opacity: 1;
-                transform: translateX(0);
-            }
-        }
-
-        .chat-bubble {
-            max-width: 250px;
-            background-color: #333;
-            color: white;
-            padding: 1rem;
-            border-radius: 12px;
-            position: relative;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
-            font-size: 0.875rem;
-        }
-
-        .chat-bubble::after {
-            content: '';
-            position: absolute;
-            bottom: -10px;
-            right: 15px;
-            width: 0;
-            height: 0;
-            border-left: 10px solid transparent;
-            border-right: 10px solid transparent;
-            border-top: 10px solid #333;
-        }
-
-        /* Gaya Modal yang Elegansi dan Kehalusan */
         .modal-overlay {
             background-color: rgba(0, 0, 0, 0.6);
             transition: opacity 0.3s ease-in-out;
@@ -149,15 +101,18 @@
 
     <header class="bg-white/80 backdrop-blur-md shadow-sm fixed w-full top-0 z-50 transition-all duration-300">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="flex justify-between items-center py-4">
-                <a href="#home" class="text-2xl font-bold text-gray-900">Zuum Visuals</a>
+            <div class="flex justify-between items-center py-4 relative md:static">
+                <div class="md:hidden flex items-center justify-center w-full absolute inset-0">
+                    <a href="#home" class="text-2xl font-bold text-gray-900">Zuum Visuals</a>
+                </div>
+                <a href="#home" class="text-2xl font-bold text-gray-900 hidden md:block">Zuum Visuals</a>
                 <nav class="hidden md:flex items-center space-x-8">
                     <a href="#home" class="text-gray-600 hover:text-gray-900 transition-colors">Home</a>
                     <a href="#portofolio" class="text-gray-600 hover:text-gray-900 transition-colors">Portofolio</a>
                     <a href="#" id="about-link" class="text-gray-600 hover:text-gray-900 transition-colors">Tentang</a>
                     <a href="#kontak" class="text-gray-600 hover:text-gray-900 transition-colors">Kontak</a>
                 </nav>
-                <div class="md:hidden">
+                <div class="md:hidden z-10">
                     <button id="menu-btn" type="button" class="text-gray-600 hover:text-gray-900 focus:outline-none">
                         <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -177,13 +132,12 @@
 
     <section id="home" class="text-center px-6">
         <div class="max-w-2xl">
-            <h2 class="text-4xl md:text-6xl font-bold text-white mb-4 fade-in-up">Abadikan Momen Indahmu</h2>
+            <h3 class="text-4xl md:text-6xl font-bold text-white mb-4 fade-in-up">Mulai Perjalanan Barumu</h3>
             <p class="text-gray-200 text-base md:text-lg mb-8 fade-in-up fade-in-up-delay-1">
-                Portofolio fotografi profesional dari Zuum Visuals. Dokumentasikan momen berharga seperti
-                wisuda, pre-wisuda, kegiatan, hingga akad nikah.
+                Kami percaya setiap awal adalah momen berharga untuk belajar dan berkembang.
             </p>
             <a href="#portofolio"
-                class="bg-gray-800 text-white font-semibold py-3 px-8 rounded-lg hover:bg-gray-700 transition-all duration-300 transform hover:scale-105 fade-in-up fade-in-up-delay-2">
+                class="bg-white/10 text-white font-semibold py-3 px-8 rounded-lg border border-white hover:bg-white/20 transition-all duration-300 transform hover:scale-105 fade-in-up fade-in-up-delay-2">
                 Lihat Karya Kami
             </a>
         </div>
@@ -197,15 +151,15 @@
                     <h3 class="text-3xl font-bold text-gray-900">Wisuda</h3>
                     <p class="text-gray-500 mt-1">Momen kelulusan yang tak terlupakan.</p>
                 </div>
-                <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-2">
                     <img src="images/wisuda/w1.jpg" alt="Wisuda"
-                        class="gallery-item h-64 w-full rounded-lg object-cover cursor-pointer grayscale hover:grayscale-0 transition-all duration-500 hover:scale-105">
+                        class="gallery-item h-64 w-full rounded-lg object-cover cursor-pointer transition-all duration-300 hover:scale-105">
                     <img src="images/wisuda/w2.jpg" alt="Wisuda"
-                        class="gallery-item h-64 w-full rounded-lg object-cover cursor-pointer grayscale hover:grayscale-0 transition-all duration-500 hover:scale-105">
+                        class="gallery-item h-64 w-full rounded-lg object-cover cursor-pointer transition-all duration-300 hover:scale-105">
                     <img src="images/wisuda/w3.jpg" alt="Wisuda"
-                        class="gallery-item h-64 w-full rounded-lg object-cover cursor-pointer grayscale hover:grayscale-0 transition-all duration-500 hover:scale-105">
+                        class="gallery-item h-64 w-full rounded-lg object-cover cursor-pointer transition-all duration-300 hover:scale-105">
                     <img src="images/wisuda/w4.jpg" alt="Wisuda"
-                        class="gallery-item h-64 w-full rounded-lg object-cover cursor-pointer grayscale hover:grayscale-0 transition-all duration-500 hover:scale-105">
+                        class="gallery-item h-64 w-full rounded-lg object-cover cursor-pointer transition-all duration-300 hover:scale-105">
                 </div>
             </section>
 
@@ -214,48 +168,23 @@
                     <h3 class="text-3xl font-bold text-gray-900">Pre-Wisuda</h3>
                     <p class="text-gray-500 mt-1">Sesi foto kasual dan formal sebelum hari kelulusan.</p>
                 </div>
-                <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-2">
                     <img src="images/pre-wisuda/p1.jpg" alt="Pre Wisuda"
-                        class="gallery-item h-64 w-full rounded-lg object-cover cursor-pointer grayscale hover:grayscale-0 transition-all duration-500 hover:scale-105">
+                        class="gallery-item h-64 w-full rounded-lg object-cover cursor-pointer transition-all duration-300 hover:scale-105">
                     <img src="images/pre-wisuda/p2.jpg" alt="Pre Wisuda"
-                        class="gallery-item h-64 w-full rounded-lg object-cover cursor-pointer grayscale hover:grayscale-0 transition-all duration-500 hover:scale-105">
+                        class="gallery-item h-64 w-full rounded-lg object-cover cursor-pointer transition-all duration-300 hover:scale-105">
                     <img src="images/pre-wisuda/p3.jpg" alt="Pre Wisuda"
-                        class="gallery-item h-64 w-full rounded-lg object-cover cursor-pointer grayscale hover:grayscale-0 transition-all duration-500 hover:scale-105">
+                        class="gallery-item h-64 w-full rounded-lg object-cover cursor-pointer transition-all duration-300 hover:scale-105">
                     <img src="images/pre-wisuda/p4.jpg" alt="Pre Wisuda"
-                        class="gallery-item h-64 w-full rounded-lg object-cover cursor-pointer grayscale hover:grayscale-0 transition-all duration-500 hover:scale-105">
+                        class="gallery-item h-64 w-full rounded-lg object-cover cursor-pointer transition-all duration-300 hover:scale-105">
                     <img src="images/pre-wisuda/p5.jpg" alt="Pre Wisuda"
-                        class="gallery-item h-64 w-full rounded-lg object-cover cursor-pointer grayscale hover:grayscale-0 transition-all duration-500 hover:scale-105">
+                        class="gallery-item h-64 w-full rounded-lg object-cover cursor-pointer transition-all duration-300 hover:scale-105">
                     <img src="images/pre-wisuda/p6.jpg" alt="Pre Wisuda"
-                        class="gallery-item h-64 w-full rounded-lg object-cover cursor-pointer grayscale hover:grayscale-0 transition-all duration-500 hover:scale-105">
+                        class="gallery-item h-64 w-full rounded-lg object-cover cursor-pointer transition-all duration-300 hover:scale-105">
                     <img src="images/pre-wisuda/p7.jpg" alt="Pre Wisuda"
-                        class="gallery-item h-64 w-full rounded-lg object-cover cursor-pointer grayscale hover:grayscale-0 transition-all duration-500 hover:scale-105">
+                        class="gallery-item h-64 w-full rounded-lg object-cover cursor-pointer transition-all duration-300 hover:scale-105">
                     <img src="images/pre-wisuda/p8.jpg" alt="Pre Wisuda"
-                        class="gallery-item h-64 w-full rounded-lg object-cover cursor-pointer grayscale hover:grayscale-0 transition-all duration-500 hover:scale-105">
-                </div>
-            </section>
-
-            <section id="kegiatan">
-                <div class="text-center mb-8">
-                    <h3 class="text-3xl font-bold text-gray-900">Kegiatan</h3>
-                    <p class="text-gray-500 mt-1">Dokumentasi acara, seminar, atau gathering.</p>
-                </div>
-                <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
-                    <img src="images/kegiatan/k10.jpg" alt="Kegiatan"
-                        class="gallery-item h-64 w-full rounded-lg object-cover cursor-pointer grayscale hover:grayscale-0 transition-all duration-500 hover:scale-105">
-                    <img src="images/kegiatan/k3.jpg" alt="Kegiatan"
-                        class="gallery-item h-64 w-full rounded-lg object-cover cursor-pointer grayscale hover:grayscale-0 transition-all duration-500 hover:scale-105">
-                    <img src="images/kegiatan/k4.jpg" alt="Kegiatan"
-                        class="gallery-item h-64 w-full rounded-lg object-cover cursor-pointer grayscale hover:grayscale-0 transition-all duration-500 hover:scale-105">
-                    <img src="images/kegiatan/k5.jpg" alt="Kegiatan"
-                        class="gallery-item h-64 w-full rounded-lg object-cover cursor-pointer grayscale hover:grayscale-0 transition-all duration-500 hover:scale-105">
-                    <img src="images/kegiatan/k6.jpg" alt="Kegiatan"
-                        class="gallery-item h-64 w-full rounded-lg object-cover cursor-pointer grayscale hover:grayscale-0 transition-all duration-500 hover:scale-105">
-                    <img src="images/kegiatan/k7.jpg" alt="Kegiatan"
-                        class="gallery-item h-64 w-full rounded-lg object-cover cursor-pointer grayscale hover:grayscale-0 transition-all duration-500 hover:scale-105">
-                    <img src="images/kegiatan/k8.jpg" alt="Kegiatan"
-                        class="gallery-item h-64 w-full rounded-lg object-cover cursor-pointer grayscale hover:grayscale-0 transition-all duration-500 hover:scale-105">
-                    <img src="images/kegiatan/k9.jpg" alt="Kegiatan"
-                        class="gallery-item h-64 w-full rounded-lg object-cover cursor-pointer grayscale hover:grayscale-0 transition-all duration-500 hover:scale-105">
+                        class="gallery-item h-64 w-full rounded-lg object-cover cursor-pointer transition-all duration-300 hover:scale-105">
                 </div>
             </section>
 
@@ -264,15 +193,40 @@
                     <h3 class="text-3xl font-bold text-gray-900">Akad Nikah</h3>
                     <p class="text-gray-500 mt-1">Merekam janji suci dalam bingkai yang abadi.</p>
                 </div>
-                <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-2">
                     <img src="images/akad/a1.jpg" alt="Akad"
-                        class="gallery-item h-64 w-full rounded-lg object-cover cursor-pointer grayscale hover:grayscale-0 transition-all duration-500 hover:scale-105">
+                        class="gallery-item h-64 w-full rounded-lg object-cover cursor-pointer transition-all duration-300 hover:scale-105">
                     <img src="images/akad/a2.jpg" alt="Akad"
-                        class="gallery-item h-64 w-full rounded-lg object-cover cursor-pointer grayscale hover:grayscale-0 transition-all duration-500 hover:scale-105">
+                        class="gallery-item h-64 w-full rounded-lg object-cover cursor-pointer transition-all duration-300 hover:scale-105">
                     <img src="images/akad/a3.jpg" alt="Akad"
-                        class="gallery-item h-64 w-full rounded-lg object-cover cursor-pointer grayscale hover:grayscale-0 transition-all duration-500 hover:scale-105">
+                        class="gallery-item h-64 w-full rounded-lg object-cover cursor-pointer transition-all duration-300 hover:scale-105">
                     <img src="images/akad/a4.jpg" alt="Akad"
-                        class="gallery-item h-64 w-full rounded-lg object-cover cursor-pointer grayscale hover:grayscale-0 transition-all duration-500 hover:scale-105">
+                        class="gallery-item h-64 w-full rounded-lg object-cover cursor-pointer transition-all duration-300 hover:scale-105">
+                </div>
+            </section>
+
+            <section id="kegiatan">
+                <div class="text-center mb-8">
+                    <h3 class="text-3xl font-bold text-gray-900">Kegiatan</h3>
+                    <p class="text-gray-500 mt-1">Dokumentasi acara, seminar, atau gathering.</p>
+                </div>
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-2">
+                    <img src="images/kegiatan/k10.jpg" alt="Kegiatan"
+                        class="gallery-item h-64 w-full rounded-lg object-cover cursor-pointer transition-all duration-300 hover:scale-105">
+                    <img src="images/kegiatan/k3.jpg" alt="Kegiatan"
+                        class="gallery-item h-64 w-full rounded-lg object-cover cursor-pointer transition-all duration-300 hover:scale-105">
+                    <img src="images/kegiatan/k4.jpg" alt="Kegiatan"
+                        class="gallery-item h-64 w-full rounded-lg object-cover cursor-pointer transition-all duration-300 hover:scale-105">
+                    <img src="images/kegiatan/k5.jpg" alt="Kegiatan"
+                        class="gallery-item h-64 w-full rounded-lg object-cover cursor-pointer transition-all duration-300 hover:scale-105">
+                    <img src="images/kegiatan/k6.jpg" alt="Kegiatan"
+                        class="gallery-item h-64 w-full rounded-lg object-cover cursor-pointer transition-all duration-300 hover:scale-105">
+                    <img src="images/kegiatan/k7.jpg" alt="Kegiatan"
+                        class="gallery-item h-64 w-full rounded-lg object-cover cursor-pointer transition-all duration-300 hover:scale-105">
+                    <img src="images/kegiatan/k8.jpg" alt="Kegiatan"
+                        class="gallery-item h-64 w-full rounded-lg object-cover cursor-pointer transition-all duration-300 hover:scale-105">
+                    <img src="images/kegiatan/k9.jpg" alt="Kegiatan"
+                        class="gallery-item h-64 w-full rounded-lg object-cover cursor-pointer transition-all duration-300 hover:scale-105">
                 </div>
             </section>
         </div>
@@ -285,7 +239,7 @@
                 dan
                 pemesanan.</p>
             <div class="flex justify-center items-center space-x-6 mb-8">
-                <a href="https://wa.me/+625798957292" target="_blank"
+                <a href="https://wa.me/085798957292" target="_blank"
                     class="text-gray-300 hover:text-white transition-colors" aria-label="WhatsApp">
                     <svg class="w-8 h-8" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
                         <path
@@ -320,7 +274,7 @@
                 class="absolute top-4 right-4 text-3xl font-bold modal-close-btn">&times;</button>
             <h3 class="text-3xl font-bold text-gray-900 mb-4">Tentang Zuum Visuals</h3>
             <p class="text-gray-600 mb-4">
-                Zuum Visuals adalah penyedia jasa fotografi profesional yang berlokasi di <b>Lamongan, Jawa Timur. </b>
+                Zuum Visuals adalah penyedia jasa fotografi profesional yang berlokasi di <b>Lamongan, Jawa Timur.</b>
                 Kami berkomitmen untuk mengabadikan setiap momen spesial Anda dengan hasil yang artistik dan tak terlupakan.
             </p>
             <p class="font-semibold text-gray-700 mb-2">Layanan Kami:</p>
@@ -332,13 +286,6 @@
             </ul>
         </div>
     </div>
-
-    <div id="chat-bubble-container">
-        <div class="chat-bubble">
-            Klik foto untuk melihat detailnya ya!
-        </div>
-    </div>
-
 
     <script>
         // Mobile Menu Toggle
@@ -378,15 +325,15 @@
         });
 
         closeImageModalBtn.addEventListener('click', () => closeModal(imageModal));
-        
+
         // MENUTUP MODAL SAAT KLIK AREA LUAR
         imageModal.addEventListener('click', (e) => {
             if (e.target === imageModal) {
                 closeModal(imageModal);
             }
         });
-        
-        // BARIS BARU: MENUTUP MODAL SAAT KLIK FOTONYA LANGSUNG
+
+        // MENUTUP MODAL SAAT KLIK FOTONYA LANGSUNG
         modalImg.addEventListener('click', () => closeModal(imageModal));
 
         // Logika untuk Modal Tentang
@@ -409,14 +356,6 @@
             if (e.target === aboutModal) {
                 closeModal(aboutModal);
             }
-        });
-
-        // Animasi Gelembung Chatbot
-        window.addEventListener('load', () => {
-            const chatBubbleContainer = document.getElementById('chat-bubble-container');
-            setTimeout(() => {
-                chatBubbleContainer.style.display = 'block';
-            }, 2000);
         });
     </script>
 
