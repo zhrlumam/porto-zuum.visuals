@@ -1,376 +1,494 @@
 <!DOCTYPE html>
 <html lang="id" class="scroll-smooth">
-
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Zuum Visuals - Portofolio Fotografi Profesional</title>
-
-    <link rel="icon" href="images/logo/logo.png" type="image/x-icon">
-    <script src="https://cdn.tailwindcss.com"></script>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Zuum Visuals — Portfolio Fotografi</title>
+    <meta name="description" content="Zuum Visuals — Portofolio fotografi: wisuda, pre-wisuda, akad nikah, dan dokumentasi kegiatan di Lamongan, Jawa Timur." />
+    <link rel="icon" href="images/logo/logo.png" />
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
     <style>
+        /* Default: Dark Theme */
+        :root {
+            --bg: #0b0b0d;
+            --card: #111114;
+            --muted: #b7b9c0;
+            --accent: #eab308;
+            --brand: #0ea5a4;
+            --text-primary: #ffffff;
+            --text-secondary: #ffffffb3; /* white/70 */
+            --border-color: rgba(255, 255, 255, .1);
+            --filter-bg: rgba(255, 255, 255, .1);
+            --filter-hover-bg: rgba(255, 255, 255, .2);
+        }
+
+        /* Light Theme */
+        html.light {
+            --bg: #f0f0f5;
+            --card: #ffffff;
+            --muted: #4a4a4a;
+            --accent: #eab308;
+            --brand: #0ea5a4;
+            --text-primary: #000000;
+            --text-secondary: #000000b3; /* black/70 */
+            --border-color: rgba(0, 0, 0, .1);
+            --filter-bg: rgba(0, 0, 0, .05);
+            --filter-hover-bg: rgba(0, 0, 0, .1);
+        }
+
+        html,
         body {
-            font-family: 'Inter', sans-serif;
+            font-family: 'Inter', system-ui, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
+            background-color: var(--bg);
+            color: var(--text-primary);
+            transition: background-color 0.3s ease, color 0.3s ease;
         }
 
-        .fade-in-up {
-            animation: fadeInUp 0.8s ease-out forwards;
-            opacity: 0;
+        /* header shrink */
+        header.is-scrolled {
+            backdrop-filter: saturate(180%) blur(12px);
+            background: rgba(var(--bg-rgb), .75); /* Dynamic background based on theme */
+            border-bottom: 1px solid var(--border-color);
         }
 
-        @keyframes fadeInUp {
+        /* mobile menu transition */
+        #mobileMenu.open {
+            animation: slideDown .3s ease-in-out forwards;
+        }
+
+        #mobileMenu:not(.open) {
+            animation: slideUp .3s ease-in-out forwards;
+        }
+
+        @keyframes slideDown {
             from {
-                opacity: 0;
-                transform: translateY(20px);
+                transform: translateY(-100%);
             }
-
             to {
-                opacity: 1;
                 transform: translateY(0);
             }
         }
 
-        .fade-in-up-delay-1 {
-            animation-delay: 0.2s;
+        @keyframes slideUp {
+            from {
+                transform: translateY(0);
+            }
+            to {
+                transform: translateY(-100%);
+            }
         }
 
-        .fade-in-up-delay-2 {
-            animation-delay: 0.4s;
+        /* reveal */
+        .reveal {
+            opacity: 0;
+            transform: translateY(24px);
+            transition: opacity .7s ease, transform .7s ease;
         }
 
-        #home {
-            background-image: url('https://source.unsplash.com/random/1920x1080/?photography,camera,learning');
-            background-size: cover;
-            background-position: center;
-            position: relative;
-            min-height: 70vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            padding-top: 80px;
+        .reveal.show {
+            opacity: 1;
+            transform: none;
         }
 
-        #home::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: linear-gradient(to bottom, rgba(255, 255, 255, 0.8), rgba(255, 255, 255, 0.95));
-            z-index: 1;
-        }
-
-        #home .max-w-2xl {
-            position: relative;
-            z-index: 2;
-            color: #1a202c;
-        }
-
-        .modal-overlay {
-            background-color: rgba(0, 0, 0, 0.6);
-            transition: opacity 0.3s ease-in-out;
-        }
-
-        .modal-content {
-            transition: transform 0.3s ease-in-out, opacity 0.3s ease-in-out;
-            transform: scale(0.95);
+        /* lightbox animation */
+        .modal-enter {
             opacity: 0;
         }
 
-        .modal-overlay.active .modal-content {
-            transform: scale(1);
+        .modal-enter-active {
             opacity: 1;
+            transition: opacity .2s ease;
         }
 
-        .modal-close-btn {
-            color: #A0AEC0;
-            transition: color 0.2s ease-in-out;
+        /* custom scrollbar */
+        .no-scrollbar::-webkit-scrollbar {
+            display: none;
         }
-
-        .modal-close-btn:hover {
-            color: #718096;
-        }
-
-        .divider {
-            border: 0;
-            height: 1px;
-            background: #e2e8f0;
-            margin: 1rem 0;
+        .no-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
         }
     </style>
 </head>
 
-<body class="bg-white text-gray-800">
-
-    <header class="bg-white/80 backdrop-blur-md shadow-sm fixed w-full top-0 z-50 transition-all duration-300">
+<body class="text-primary">
+    <header class="fixed top-0 inset-x-0 z-50 transition-all">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="flex justify-between items-center py-4 relative md:static">
-                <div class="md:hidden flex items-center justify-center w-full absolute inset-0">
-                    <a href="#home" class="text-2xl font-bold text-gray-900">Zuum Visuals</a>
-                </div>
-                <a href="#home" class="text-2xl font-bold text-gray-900 hidden md:block">Zuum Visuals</a>
-                <nav class="hidden md:flex items-center space-x-8">
-                    <a href="#home" class="text-gray-600 hover:text-gray-900 transition-colors">Home</a>
-                    <a href="#portofolio" class="text-gray-600 hover:text-gray-900 transition-colors">Portofolio</a>
-                    <a href="#" id="about-link" class="text-gray-600 hover:text-gray-900 transition-colors">Tentang</a>
-                    <a href="#kontak" class="text-gray-600 hover:text-gray-900 transition-colors">Kontak</a>
+            <div class="flex items-center justify-between h-16">
+                <a href="#home" class="flex items-center gap-3">
+                    <!-- <img src="images/logo/logo.png" alt="Logo Zuum Visuals" class="h-8 w-8 rounded-full object-cover" /> -->
+                    <span class="font-extrabold tracking-wide text-primary">Zuum Visuals</span>
+                </a>
+                <nav class="hidden md:flex items-center gap-8 text-sm">
+                    <a href="#portfolio" class="text-[var(--muted)] hover:text-primary transition">PORTFOLIO</a>
+                    <a href="#about" class="text-[var(--muted)] hover:text-primary transition">ABOUT ME</a>
+                    <a href="#contact" class="text-[var(--muted)] hover:text-primary transition">CONTACT</a>
                 </nav>
-                <div class="md:hidden z-10">
-                    <button id="menu-btn" type="button" class="text-gray-600 hover:text-gray-900 focus:outline-none">
-                        <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                d="M4 6h16M4 12h16m-7 6h7" />
+                <div class="flex items-center gap-3">
+                    <button id="themeToggle" class="p-2 rounded-full text-[var(--muted)] hover:text-primary transition" aria-label="Toggle theme">
+                        <svg id="moonIcon" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" /></svg>
+                        <svg id="sunIcon" class="h-6 w-6 hidden" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h1M3 12H2m15.354 7.354l-.707.707M6.343 6.343l-.707-.707m12.728 0l-.707-.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z" /></svg>
+                    </button>
+                    <button id="navBtn" class="md:hidden inline-flex items-center justify-center p-2 text-[var(--muted)] hover:text-primary transition" aria-label="Toggle menu">
+                        <svg id="menuIcon" xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+                        </svg>
+                        <svg id="closeIcon" xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 hidden" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
                         </svg>
                     </button>
                 </div>
             </div>
         </div>
-        <div id="mobile-menu" class="hidden md:hidden">
-            <a href="#home" class="block py-2 px-4 text-sm text-gray-600 hover:bg-gray-100">Home</a>
-            <a href="#portofolio" class="block py-2 px-4 text-sm text-gray-600 hover:bg-gray-100">Portofolio</a>
-            <a href="#" id="about-link-mobile" class="block py-2 px-4 text-sm text-gray-600 hover:bg-gray-100">Tentang</a>
-            <a href="#kontak" class="block py-2 px-4 text-sm text-gray-600 hover:bg-gray-100">Kontak</a>
+        <div id="mobileMenu" class="absolute top-16 inset-x-0 md:hidden hidden border-t border-[var(--border-color)] bg-[var(--card)]">
+            <nav class="max-w-7xl mx-auto px-4 py-3 grid gap-2 text-sm">
+                <a href="#portfolio" class="py-2 text-[var(--muted)] hover:text-primary transition">PORTFOLIO</a>
+                <a href="#about" class="py-2 text-[var(--muted)] hover:text-primary transition">ABOUT ME</a>
+                <a href="#contact" class="py-2 text-[var(--muted)] hover:text-primary transition">CONTACT</a>
+            </nav>
         </div>
     </header>
 
-    <section id="home" class="text-center px-6 min-h-screen my-24">
-        <div class="max-w-2xl">
-            <h2 class="text-4xl md:text-6xl font-bold mb-4 fade-in-up">Zuum Visuals</h2>
-            <p class="text-base md:text-lg mb-8 fade-in-up fade-in-up-delay-1">
-                Kami adalah Zuum Visuals, penyedia jasa fotografi profesional yang siap mengabadikan setiap
-                momen penting dalam hidup Anda dengan sentuhan artistik dan kualitas terbaik.
-            </p>
-            <a href="#portofolio"
-                class="bg-gray-800 text-white font-semibold py-3 px-8 rounded-lg border border-gray-800 hover:bg-gray-900 transition-all duration-300 transform hover:scale-105 fade-in-up fade-in-up-delay-2">
-                Lihat Karya Kami
-            </a>
+    <section id="home" class="relative min-h-[92vh] flex items-center">
+        <img src="images/logo/h.JPG" alt="Hero Zuum Visuals" class="absolute inset-0 w-full h-full object-cover opacity-60" />
+        <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/50 to-transparent"></div>
+        <div class="relative max-w-5xl mx-auto px-6 py-28 text-center text-white">
+            <p class="tracking-[.3em] text-xs md:text-sm text-white/70 mb-4 reveal">PORTFOLIO PHOTOGRAPHY</p>
+            <h1 class="text-3xl md:text-6xl font-extrabold leading-tight reveal">Halo, kami <span class="text-[var(--accent)]">Zuum Visuals</span></h1>
+            <p class="mt-4 text-white/80 max-w-2xl mx-auto reveal"> Kami adalah tim yang berdedikasi untuk terus berkembang bersama Anda, siap mengabadikan setiap momen berharga dengan kualitas profesional dan harga yang lebih bersahabat.</p>
+            <div class="mt-8 flex items-center justify-center gap-3 reveal">
+                <a href="#portfolio" class="inline-flex items-center gap-2 rounded-xl bg-[var(--accent)] text-black font-semibold px-5 py-3 hover:brightness-95 transition">Lihat Karya</a>
+                <a href="#contact" class="inline-flex items-center gap-2 rounded-xl border border-white/20 px-5 py-3 text-white/90 hover:bg-white/10 transition">Hubungi Kami</a>
+            </div>
         </div>
     </section>
 
-    <main id="portofolio" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 md:py-24 space-y-10">
-
-        <div class="space-y-10">
-            <section id="wisuda">
-                <div class="text-center mb-8">
-                    <h3 class="text-3xl font-bold text-gray-900">Wisuda</h3>
-                    <p class="text-gray-500 mt-1">Momen kelulusan yang tak terlupakan.</p>
+    <section id="portfolio" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
+        <div class="flex flex-col md:flex-row items-start md:items-end justify-between gap-4 mb-8 reveal">
+            <div>
+                <h2 class="text-2xl md:text-3xl font-extrabold">PORTFOLIO</h2>
+                <p class="text-[var(--text-secondary)] mt-1">Kumpulan karya terbaru kami.</p>
+            </div>
+            <div class="w-full md:w-auto overflow-x-auto no-scrollbar">
+                <div class="flex items-center gap-2 text-sm pb-2">
+                    <button data-filter="all" class="filter-btn shrink-0 px-4 py-2 rounded-lg bg-[var(--filter-bg)] hover:bg-[var(--filter-hover-bg)] transition">Semua</button>
+                    <button data-filter="wisuda" class="filter-btn shrink-0 px-4 py-2 rounded-lg hover:bg-[var(--filter-hover-bg)] transition">Wisuda</button>
+                    <button data-filter="prewisuda" class="filter-btn shrink-0 px-4 py-2 rounded-lg hover:bg-[var(--filter-hover-bg)] transition">Pre-Wisuda</button>
+                    <button data-filter="akad" class="filter-btn shrink-0 px-4 py-2 rounded-lg hover:bg-[var(--filter-hover-bg)] transition">Akad</button>
+                    <button data-filter="kegiatan" class="filter-btn shrink-0 px-4 py-2 rounded-lg hover:bg-[var(--filter-hover-bg)] transition">Kegiatan</button>
                 </div>
-                <hr class="divider">
-                <div class="grid grid-cols-2 md:grid-cols-4 gap-2">
-                    <img src="images/wisuda/w1.jpg" alt="Wisuda"
-                        class="gallery-item h-64 w-full object-cover cursor-pointer transition-all duration-300 hover:scale-105">
-                    <img src="images/wisuda/w2.jpg" alt="Wisuda"
-                        class="gallery-item h-64 w-full object-cover cursor-pointer transition-all duration-300 hover:scale-105">
-                    <img src="images/wisuda/w3.jpg" alt="Wisuda"
-                        class="gallery-item h-64 w-full object-cover cursor-pointer transition-all duration-300 hover:scale-105">
-                    <img src="images/wisuda/w4.jpg" alt="Wisuda"
-                        class="gallery-item h-64 w-full object-cover cursor-pointer transition-all duration-300 hover:scale-105">
-                </div>
-            </section>
-
-            <section id="prewisuda">
-                <div class="text-center mb-8">
-                    <h3 class="text-3xl font-bold text-gray-900">Pre-Wisuda</h3>
-                    <p class="text-gray-500 mt-1">Sesi foto kasual dan formal sebelum hari kelulusan.</p>
-                </div>
-                <hr class="divider">
-                <div class="grid grid-cols-2 md:grid-cols-4 gap-2">
-                    <img src="images/pre-wisuda/p1.jpg" alt="Pre Wisuda"
-                        class="gallery-item h-64 w-full object-cover cursor-pointer transition-all duration-300 hover:scale-105">
-                    <img src="images/pre-wisuda/p2.jpg" alt="Pre Wisuda"
-                        class="gallery-item h-64 w-full object-cover cursor-pointer transition-all duration-300 hover:scale-105">
-                    <img src="images/pre-wisuda/p3.jpg" alt="Pre Wisuda"
-                        class="gallery-item h-64 w-full object-cover cursor-pointer transition-all duration-300 hover:scale-105">
-                    <img src="images/pre-wisuda/p4.jpg" alt="Pre Wisuda"
-                        class="gallery-item h-64 w-full object-cover cursor-pointer transition-all duration-300 hover:scale-105">
-                    <img src="images/pre-wisuda/p5.jpg" alt="Pre Wisuda"
-                        class="gallery-item h-64 w-full object-cover cursor-pointer transition-all duration-300 hover:scale-105">
-                    <img src="images/pre-wisuda/p6.jpg" alt="Pre Wisuda"
-                        class="gallery-item h-64 w-full object-cover cursor-pointer transition-all duration-300 hover:scale-105">
-                    <img src="images/pre-wisuda/p7.jpg" alt="Pre Wisuda"
-                        class="gallery-item h-64 w-full object-cover cursor-pointer transition-all duration-300 hover:scale-105">
-                    <img src="images/pre-wisuda/p8.jpg" alt="Pre Wisuda"
-                        class="gallery-item h-64 w-full object-cover cursor-pointer transition-all duration-300 hover:scale-105">
-                </div>
-            </section>
-
-            <section id="akad">
-                <div class="text-center mb-8">
-                    <h3 class="text-3xl font-bold text-gray-900">Akad Nikah</h3>
-                    <p class="text-gray-500 mt-1">Merekam janji suci dalam bingkai yang abadi.</p>
-                </div>
-                <hr class="divider">
-                <div class="grid grid-cols-2 md:grid-cols-4 gap-2">
-                    <img src="images/akad/a1.jpg" alt="Akad"
-                        class="gallery-item h-64 w-full object-cover cursor-pointer transition-all duration-300 hover:scale-105">
-                    <img src="images/akad/a2.jpg" alt="Akad"
-                        class="gallery-item h-64 w-full object-cover cursor-pointer transition-all duration-300 hover:scale-105">
-                    <img src="images/akad/a3.jpg" alt="Akad"
-                        class="gallery-item h-64 w-full object-cover cursor-pointer transition-all duration-300 hover:scale-105">
-                    <img src="images/akad/a4.jpg" alt="Akad"
-                        class="gallery-item h-64 w-full object-cover cursor-pointer transition-all duration-300 hover:scale-105">
-                </div>
-            </section>
-
-            <section id="kegiatan">
-                <div class="text-center mb-8">
-                    <h3 class="text-3xl font-bold text-gray-900">Kegiatan</h3>
-                    <p class="text-gray-500 mt-1">Dokumentasi acara, seminar, atau gathering.</p>
-                </div>
-                <hr class="divider">
-                <div class="grid grid-cols-2 md:grid-cols-4 gap-2">
-                    <img src="images/kegiatan/k10.jpg" alt="Kegiatan"
-                        class="gallery-item h-64 w-full object-cover cursor-pointer transition-all duration-300 hover:scale-105">
-                    <img src="images/kegiatan/k3.jpg" alt="Kegiatan"
-                        class="gallery-item h-64 w-full object-cover cursor-pointer transition-all duration-300 hover:scale-105">
-                    <img src="images/kegiatan/k4.jpg" alt="Kegiatan"
-                        class="gallery-item h-64 w-full object-cover cursor-pointer transition-all duration-300 hover:scale-105">
-                    <img src="images/kegiatan/k5.jpg" alt="Kegiatan"
-                        class="gallery-item h-64 w-full object-cover cursor-pointer transition-all duration-300 hover:scale-105">
-                    <img src="images/kegiatan/k6.jpg" alt="Kegiatan"
-                        class="gallery-item h-64 w-full object-cover cursor-pointer transition-all duration-300 hover:scale-105">
-                    <img src="images/kegiatan/k7.jpg" alt="Kegiatan"
-                        class="gallery-item h-64 w-full object-cover cursor-pointer transition-all duration-300 hover:scale-105">
-                    <img src="images/kegiatan/k8.jpg" alt="Kegiatan"
-                        class="gallery-item h-64 w-full object-cover cursor-pointer transition-all duration-300 hover:scale-105">
-                    <img src="images/kegiatan/k9.jpg" alt="Kegiatan"
-                        class="gallery-item h-64 w-full object-cover cursor-pointer transition-all duration-300 hover:scale-105">
-                </div>
-            </section>
+            </div>
         </div>
-    </main>
 
-    <footer id="kontak" class="bg-gray-900 text-white">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 text-center">
-            <h4 class="text-2xl font-bold mb-2">Tertarik Mengabadikan Momen?</h4>
-            <p class="text-gray-400 mb-6 max-w-md mx-auto">Hubungi kami melalui platform di bawah ini untuk konsultasi
-                dan
-                pemesanan.</p>
-            <div class="flex justify-center items-center space-x-6 mb-8">
-                <a href="https://api.whatsapp.com/send/?phone=6285798957292&text=Halo%20Zuumvisuals%2C%20saya%20tertarik%20untuk%20mengetahui%20lebih%20lanjut%20mengenai%20layanan%20fotografi%20yang%20Anda%20tawarkan.&type=phone_number&app_absent=0" target="_blank"
-                    class="text-gray-300 hover:text-white transition-colors" aria-label="WhatsApp">
-                    <svg class="w-8 h-8" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                        <path
-                            d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91C2.13 13.66 2.59 15.36 3.45 16.86L2.05 22L7.31 20.62C8.75 21.41 10.37 21.82 12.04 21.82C17.5 21.82 21.95 17.37 21.95 11.91C21.95 6.45 17.5 2 12.04 2M12.04 3.67C16.56 3.67 20.28 7.38 20.28 11.91C20.28 16.44 16.56 20.15 12.04 20.15C10.56 20.15 9.14 19.78 7.9 19.09L7.54 18.88L4.32 19.8L5.26 16.68L5.05 16.31C4.30 15.05 3.80 13.53 3.80 11.91C3.80 7.38 7.52 3.67 12.04 3.67M16.57 14.45C16.32 14.32 15.12 13.75 14.90 13.66C14.68 13.58 14.53 13.53 14.39 13.78C14.24 14.03 13.77 14.60 13.65 14.75C13.52 14.91 13.39 14.93 13.14 14.80C12.89 14.68 12.08 14.41 11.11 13.56C10.35 12.90 9.83 12.06 9.71 11.84C9.58 11.61 9.73 11.47 9.86 11.35C9.97 11.24 10.11 11.06 10.26 10.90C10.41 10.74 10.46 10.61 10.61 10.36C10.76 10.11 10.71 9.91 10.63 9.79C10.56 9.67 10.11 8.53 9.91 8.03C9.72 7.54 9.53 7.61 9.39 7.61C9.25 7.61 9.10 7.61 8.96 7.61C8.81 7.61 8.56 7.66 8.34 7.89C8.11 8.11 7.59 8.58 7.59 9.70C7.59 10.82 8.36 11.90 8.51 12.08C8.66 12.25 10.12 14.53 12.39 15.46C13.06 15.74 13.54 15.90 13.92 16.03C14.51 16.20 14.99 16.18 15.34 16.12C15.74 16.05 16.69 15.49 16.89 14.94C17.09 14.39 17.09 13.94 17.02 13.82C16.94 13.69 16.82 13.57 16.57 14.45Z" />
-                    </svg>
+        <div id="grid" class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-2 md:gap-3 reveal">
+            <figure class="group relative overflow-hidden rounded-xl image-card" data-cat="wisuda">
+                <img src="images/wisuda/w1.jpg" loading="lazy" alt="Wisuda 1" class="h-56 md:h-64 w-full object-cover group-hover:scale-105 transition duration-500" />
+                <figcaption class="pointer-events-none absolute inset-0 bg-black/0 group-hover:bg-black/40 transition flex items-end">
+                    <span class="m-3 text-xs uppercase tracking-wide opacity-0 group-hover:opacity-100 transition text-white">Wisuda</span>
+                </figcaption>
+            </figure>
+            <figure class="group relative overflow-hidden rounded-xl image-card" data-cat="wisuda">
+                <img src="images/wisuda/w2.jpg" loading="lazy" alt="Wisuda 2" class="h-56 md:h-64 w-full object-cover group-hover:scale-105 transition duration-500" />
+                <figcaption class="pointer-events-none absolute inset-0 bg-black/0 group-hover:bg-black/40 transition flex items-end"><span class="m-3 text-xs uppercase tracking-wide opacity-0 group-hover:opacity-100 transition text-white">Wisuda</span></figcaption>
+            </figure>
+            <figure class="group relative overflow-hidden rounded-xl image-card" data-cat="wisuda">
+                <img src="images/wisuda/w3.jpg" loading="lazy" alt="Wisuda 3" class="h-56 md:h-64 w-full object-cover group-hover:scale-105 transition duration-500" />
+                <figcaption class="pointer-events-none absolute inset-0 bg-black/0 group-hover:bg-black/40 transition flex items-end"><span class="m-3 text-xs uppercase tracking-wide opacity-0 group-hover:opacity-100 transition text-white">Wisuda</span></figcaption>
+            </figure>
+            <figure class="group relative overflow-hidden rounded-xl image-card" data-cat="wisuda">
+                <img src="images/wisuda/w4.jpg" loading="lazy" alt="Wisuda 4" class="h-56 md:h-64 w-full object-cover group-hover:scale-105 transition duration-500" />
+                <figcaption class="pointer-events-none absolute inset-0 bg-black/0 group-hover:bg-black/40 transition flex items-end"><span class="m-3 text-xs uppercase tracking-wide opacity-0 group-hover:opacity-100 transition text-white">Wisuda</span></figcaption>
+            </figure>
+             <figure class="group relative overflow-hidden rounded-xl image-card" data-cat="wisuda">
+                <img src="images/wisuda/w5.jpg" loading="lazy" alt="Wisuda 4" class="h-56 md:h-64 w-full object-cover group-hover:scale-105 transition duration-500" />
+                <figcaption class="pointer-events-none absolute inset-0 bg-black/0 group-hover:bg-black/40 transition flex items-end"><span class="m-3 text-xs uppercase tracking-wide opacity-0 group-hover:opacity-100 transition text-white">Wisuda</span></figcaption>
+            </figure>
+             <figure class="group relative overflow-hidden rounded-xl image-card" data-cat="wisuda">
+                <img src="images/wisuda/w6.JPG" loading="lazy" alt="Wisuda 4" class="h-56 md:h-64 w-full object-cover group-hover:scale-105 transition duration-500" />
+                <figcaption class="pointer-events-none absolute inset-0 bg-black/0 group-hover:bg-black/40 transition flex items-end"><span class="m-3 text-xs uppercase tracking-wide opacity-0 group-hover:opacity-100 transition text-white">Wisuda</span></figcaption>
+            </figure>
+             <figure class="group relative overflow-hidden rounded-xl image-card" data-cat="wisuda">
+                <img src="images/wisuda/w7.jpg" loading="lazy" alt="Wisuda 4" class="h-56 md:h-64 w-full object-cover group-hover:scale-105 transition duration-500" />
+                <figcaption class="pointer-events-none absolute inset-0 bg-black/0 group-hover:bg-black/40 transition flex items-end"><span class="m-3 text-xs uppercase tracking-wide opacity-0 group-hover:opacity-100 transition text-white">Wisuda</span></figcaption>
+            </figure>
+             <figure class="group relative overflow-hidden rounded-xl image-card" data-cat="wisuda">
+                <img src="images/wisuda/w8.JPG" loading="lazy" alt="Wisuda 4" class="h-56 md:h-64 w-full object-cover group-hover:scale-105 transition duration-500" />
+                <figcaption class="pointer-events-none absolute inset-0 bg-black/0 group-hover:bg-black/40 transition flex items-end"><span class="m-3 text-xs uppercase tracking-wide opacity-0 group-hover:opacity-100 transition text-white">Wisuda</span></figcaption>
+            </figure>
+            <figure class="group relative overflow-hidden rounded-xl image-card" data-cat="prewisuda">
+                <img src="images/pre-wisuda/p1.png" loading="lazy" alt="Pre-wisuda 1" class="h-56 md:h-64 w-full object-cover group-hover:scale-105 transition duration-500" />
+                <figcaption class="pointer-events-none absolute inset-0 bg-black/0 group-hover:bg-black/40 transition flex items-end"><span class="m-3 text-xs uppercase tracking-wide opacity-0 group-hover:opacity-100 transition text-white">Pre-Wisuda</span></figcaption>
+            </figure>
+            <figure class="group relative overflow-hidden rounded-xl image-card" data-cat="prewisuda">
+                <img src="images/pre-wisuda/p2.png" loading="lazy" alt="Pre-wisuda 2" class="h-56 md:h-64 w-full object-cover group-hover:scale-105 transition duration-500" />
+                <figcaption class="pointer-events-none absolute inset-0 bg-black/0 group-hover:bg-black/40 transition flex items-end"><span class="m-3 text-xs uppercase tracking-wide opacity-0 group-hover:opacity-100 transition text-white">Pre-Wisuda</span></figcaption>
+            </figure>
+            <figure class="group relative overflow-hidden rounded-xl image-card" data-cat="prewisuda">
+                <img src="images/pre-wisuda/p3.png" loading="lazy" alt="Pre-wisuda 3" class="h-56 md:h-64 w-full object-cover group-hover:scale-105 transition duration-500" />
+                <figcaption class="pointer-events-none absolute inset-0 bg-black/0 group-hover:bg-black/40 transition flex items-end"><span class="m-3 text-xs uppercase tracking-wide opacity-0 group-hover:opacity-100 transition text-white">Pre-Wisuda</span></figcaption>
+            </figure>
+            <figure class="group relative overflow-hidden rounded-xl image-card" data-cat="prewisuda">
+                <img src="images/pre-wisuda/p4.png" loading="lazy" alt="Pre-wisuda 3" class="h-56 md:h-64 w-full object-cover group-hover:scale-105 transition duration-500" />
+                <figcaption class="pointer-events-none absolute inset-0 bg-black/0 group-hover:bg-black/40 transition flex items-end"><span class="m-3 text-xs uppercase tracking-wide opacity-0 group-hover:opacity-100 transition text-white">Pre-Wisuda</span></figcaption>
+            </figure>
+             <figure class="group relative overflow-hidden rounded-xl image-card" data-cat="prewisuda">
+                <img src="images/pre-wisuda/p5.png" loading="lazy" alt="Pre-wisuda 3" class="h-56 md:h-64 w-full object-cover group-hover:scale-105 transition duration-500" />
+                <figcaption class="pointer-events-none absolute inset-0 bg-black/0 group-hover:bg-black/40 transition flex items-end"><span class="m-3 text-xs uppercase tracking-wide opacity-0 group-hover:opacity-100 transition text-white">Pre-Wisuda</span></figcaption>
+            </figure>
+             <figure class="group relative overflow-hidden rounded-xl image-card" data-cat="prewisuda">
+                <img src="images/pre-wisuda/p6.png" loading="lazy" alt="Pre-wisuda 3" class="h-56 md:h-64 w-full object-cover group-hover:scale-105 transition duration-500" />
+                <figcaption class="pointer-events-none absolute inset-0 bg-black/0 group-hover:bg-black/40 transition flex items-end"><span class="m-3 text-xs uppercase tracking-wide opacity-0 group-hover:opacity-100 transition text-white">Pre-Wisuda</span></figcaption>
+            </figure>
+             <figure class="group relative overflow-hidden rounded-xl image-card" data-cat="prewisuda">
+                <img src="images/pre-wisuda/p7.png" loading="lazy" alt="Pre-wisuda 3" class="h-56 md:h-64 w-full object-cover group-hover:scale-105 transition duration-500" />
+                <figcaption class="pointer-events-none absolute inset-0 bg-black/0 group-hover:bg-black/40 transition flex items-end"><span class="m-3 text-xs uppercase tracking-wide opacity-0 group-hover:opacity-100 transition text-white">Pre-Wisuda</span></figcaption>
+            </figure>
+             <figure class="group relative overflow-hidden rounded-xl image-card" data-cat="prewisuda">
+                <img src="images/pre-wisuda/p8.png" loading="lazy" alt="Pre-wisuda 3" class="h-56 md:h-64 w-full object-cover group-hover:scale-105 transition duration-500" />
+                <figcaption class="pointer-events-none absolute inset-0 bg-black/0 group-hover:bg-black/40 transition flex items-end"><span class="m-3 text-xs uppercase tracking-wide opacity-0 group-hover:opacity-100 transition text-white">Pre-Wisuda</span></figcaption>
+            </figure>
+            <figure class="group relative overflow-hidden rounded-xl image-card" data-cat="akad">
+                <img src="images/akad/a1.jpg" loading="lazy" alt="Akad 1" class="h-56 md:h-64 w-full object-cover group-hover:scale-105 transition duration-500" />
+                <figcaption class="pointer-events-none absolute inset-0 bg-black/0 group-hover:bg-black/40 transition flex items-end"><span class="m-3 text-xs uppercase tracking-wide opacity-0 group-hover:opacity-100 transition text-white">Akad</span></figcaption>
+            </figure>
+            <figure class="group relative overflow-hidden rounded-xl image-card" data-cat="akad">
+                <img src="images/akad/a2.jpg" loading="lazy" alt="Akad 2" class="h-56 md:h-64 w-full object-cover group-hover:scale-105 transition duration-500" />
+                <figcaption class="pointer-events-none absolute inset-0 bg-black/0 group-hover:bg-black/40 transition flex items-end"><span class="m-3 text-xs uppercase tracking-wide opacity-0 group-hover:opacity-100 transition text-white">Akad</span></figcaption>
+            </figure>
+             <figure class="group relative overflow-hidden rounded-xl image-card" data-cat="akad">
+                <img src="images/akad/a3.jpg" loading="lazy" alt="Akad 2" class="h-56 md:h-64 w-full object-cover group-hover:scale-105 transition duration-500" />
+                <figcaption class="pointer-events-none absolute inset-0 bg-black/0 group-hover:bg-black/40 transition flex items-end"><span class="m-3 text-xs uppercase tracking-wide opacity-0 group-hover:opacity-100 transition text-white">Akad</span></figcaption>
+            </figure>
+             <figure class="group relative overflow-hidden rounded-xl image-card" data-cat="akad">
+                <img src="images/akad/a4.jpg" loading="lazy" alt="Akad 2" class="h-56 md:h-64 w-full object-cover group-hover:scale-105 transition duration-500" />
+                <figcaption class="pointer-events-none absolute inset-0 bg-black/0 group-hover:bg-black/40 transition flex items-end"><span class="m-3 text-xs uppercase tracking-wide opacity-0 group-hover:opacity-100 transition text-white">Akad</span></figcaption>
+            </figure>
+            <figure class="group relative overflow-hidden rounded-xl image-card" data-cat="kegiatan">
+                <img src="images/kegiatan/k1.jpg" loading="lazy" alt="Kegiatan 1" class="h-56 md:h-64 w-full object-cover group-hover:scale-105 transition duration-500" />
+                <figcaption class="pointer-events-none absolute inset-0 bg-black/0 group-hover:bg-black/40 transition flex items-end"><span class="m-3 text-xs uppercase tracking-wide opacity-0 group-hover:opacity-100 transition text-white">Kegiatan</span></figcaption>
+            </figure>
+            <figure class="group relative overflow-hidden rounded-xl image-card" data-cat="kegiatan">
+                <img src="images/kegiatan/k3.jpg" loading="lazy" alt="Kegiatan 2" class="h-56 md:h-64 w-full object-cover group-hover:scale-105 transition duration-500" />
+                <figcaption class="pointer-events-none absolute inset-0 bg-black/0 group-hover:bg-black/40 transition flex items-end"><span class="m-3 text-xs uppercase tracking-wide opacity-0 group-hover:opacity-100 transition text-white">Kegiatan</span></figcaption>
+            </figure>
+            <figure class="group relative overflow-hidden rounded-xl image-card" data-cat="kegiatan">
+                <img src="images/kegiatan/k4.jpg" loading="lazy" alt="Kegiatan 3" class="h-56 md:h-64 w-full object-cover group-hover:scale-105 transition duration-500" />
+                <figcaption class="pointer-events-none absolute inset-0 bg-black/0 group-hover:bg-black/40 transition flex items-end"><span class="m-3 text-xs uppercase tracking-wide opacity-0 group-hover:opacity-100 transition text-white">Kegiatan</span></figcaption>
+            </figure>
+            <figure class="group relative overflow-hidden rounded-xl image-card" data-cat="kegiatan">
+                <img src="images/kegiatan/k5.jpg" loading="lazy" alt="Kegiatan 4" class="h-56 md:h-64 w-full object-cover group-hover:scale-105 transition duration-500" />
+                <figcaption class="pointer-events-none absolute inset-0 bg-black/0 group-hover:bg-black/40 transition flex items-end"><span class="m-3 text-xs uppercase tracking-wide opacity-0 group-hover:opacity-100 transition text-white">Kegiatan</span></figcaption>
+            </figure>
+        </div>
+
+        <div class="text-center mt-10 reveal">
+            <a href="URL_GOOGLE_DRIVE_PORTFOLIO" target="_blank" class="inline-flex items-center gap-2 rounded-xl border border-[var(--border-color)] px-6 py-3 text-sm text-[var(--text-secondary)] hover:bg-[var(--filter-hover-bg)] transition">Lihat lebih banyak di Google Drive</a>
+        </div>
+    </section>
+
+<section id="about" class="border-t border-[var(--border-color)] bg-[var(--card)]/70">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 md:py-24 flex gap-4 items-center">
+        <div class="w-1/2 reveal order-1">
+            <h2 class="text-2xl md:text-3xl font-extrabold">ABOUT ME</h2>
+            <p class="text-[var(--text-secondary)] mt-4 leading-relaxed text-sm md:text-base text-justify">
+                Kami Zuum Visuals, tim fotografer yang fokus pada storytelling visual. Berbasis di <b>Lamongan, Jawa Timur</b>, kami terbiasa mengerjakan proyek wisuda, pre-wisuda, akad nikah, dan dokumentasi event dengan pendekatan artistik serta manajemen file rapi.
+            </p>
+            <div class="mt-6 flex gap-3 justify-start">
+                <a href="#contact" class="inline-flex items-center gap-2 rounded-xl bg-[var(--accent)] text-black font-semibold px-4 py-2 text-sm md:px-5 md:py-3 hover:brightness-95 transition">Kontak</a>
+                <a href="https://instagram.com/zuum.visuals" target="_blank" class="inline-flex items-center gap-2 rounded-xl border border-[var(--border-color)] px-4 py-2 text-sm md:px-5 md:py-3 text-[var(--text-secondary)] hover:bg-[var(--filter-hover-bg)] transition">Instagram</a>
+            </div>
+        </div>
+        <div class="w-1/2 reveal order-2">
+            <div class="aspect-[4/5] overflow-hidden rounded-2xl ring-1 ring-[var(--border-color)]">
+                <img src="images/profile/me.jpg" alt="Fotografer Zuum Visuals" class="w-full h-full object-cover" />
+            </div>
+        </div>
+    </div>
+</section>
+
+    <section id="contact" class="py-16 md:py-24">
+        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center reveal">
+            <h2 class="text-2xl md:text-3xl font-extrabold">CONTACT</h2>
+            <p class="text-[var(--text-secondary)] mt-2">Ingin booking atau tanya paket? Silakan hubungi kami.</p>
+            <div class="mt-8 grid sm:grid-cols-3 gap-4">
+                <a href="https://api.whatsapp.com/send/?phone=6285798957292&text=Halo%20Zuumvisuals%2C%20saya%20tertarik%20dengan%20jasa%20fotografi." target="_blank" class="rounded-2xl bg-[var(--filter-bg)] hover:bg-[var(--filter-hover-bg)] p-6 transition">
+                    <div class="text-sm text-[var(--text-secondary)]">WhatsApp</div>
+                    <div class="font-semibold text-primary">+62 857-9895-7292</div>
                 </a>
-
-                <a href="https://instagram.com/zuum.visuals" target="_blank"
-                    class="text-gray-300 hover:text-white transition-colors" aria-label="Instagram">
-                    <svg class="w-8 h-8" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                        <path
-                            d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.85s-.012 3.584-.07 4.85c-.148 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07s-3.584-.012-4.85-.07c-3.252-.148-4.771-1.691-4.919-4.919-.058-1.265-.069-1.645-.069-4.85s.012-3.584.07-4.85c.148-3.225 1.664-4.771 4.919-4.919 1.266-.058 1.644-.07 4.85-.07zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.072-4.948-.072zM12 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.162 6.162 6.162 6.162-2.759 6.162-6.162-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4s1.791-4 4-4 4 1.79 4 4-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44 1.441-.645 1.441-1.44-.645-1.44-1.441-1.44z" />
-                    </svg>
+                <a href="mailto:zuumvisuals@mail.com" class="rounded-2xl bg-[var(--filter-bg)] hover:bg-[var(--filter-hover-bg)] p-6 transition">
+                    <div class="text-sm text-[var(--text-secondary)]">Email</div>
+                    <div class="font-semibold text-primary">zuumvisuals@mail.com</div>
+                </a>
+                <a href="https://instagram.com/zuum.visuals" target="_blank" class="rounded-2xl bg-[var(--filter-bg)] hover:bg-[var(--filter-hover-bg)] p-6 transition">
+                    <div class="text-sm text-[var(--text-secondary)]">Instagram</div>
+                    <div class="font-semibold text-primary">@zuum.visuals</div>
                 </a>
             </div>
-            <p class="text-gray-500 text-sm">&copy; 2025 Zuum Visuals. All Rights Reserved.</p>
+        </div>
+    </section>
+
+    <footer class="border-t border-[var(--border-color)] py-10">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row items-center justify-between gap-4 text-[var(--text-secondary)] text-sm">
+            <div>© 2025 Zuum Visuals. All rights reserved.</div>
+            <div class="flex items-center gap-4">
+                <a href="#home" class="hover:text-primary transition">Back to top</a>
+            </div>
         </div>
     </footer>
 
-    <div id="image-modal"
-        class="fixed inset-0 modal-overlay flex justify-center items-center z-[100] hidden p-4">
-        <div class="modal-content relative flex justify-center items-center h-full w-full">
-            <img id="modal-img" src="" alt="Tampilan diperbesar" class="max-w-full max-h-full object-contain shadow-xl">
-            <button id="close-image-modal" class="absolute top-4 right-4 text-4xl font-bold modal-close-btn">&times;</button>
-        </div>
-    </div>
-
-    <div id="about-modal"
-        class="fixed inset-0 modal-overlay flex justify-center items-center z-[100] hidden p-4">
-        <div class="bg-white p-8 max-w-lg w-full text-center relative modal-content shadow-xl">
-            <button id="close-about-modal"
-                class="absolute top-4 right-4 text-3xl font-bold modal-close-btn">&times;</button>
-            <h3 class="text-3xl font-bold text-gray-900 mb-4">Tentang Zuum Visuals</h3>
-            <p class="text-gray-600 mb-4">
-                Zuum Visuals adalah penyedia jasa fotografi profesional yang berlokasi di <b>Lamongan, Jawa Timur.</b>
-                Kami berkomitmen untuk mengabadikan setiap momen spesial Anda dengan hasil yang artistik dan tak terlupakan.
-            </p>
-            <p class="font-semibold text-gray-700 mb-2">Layanan Kami:</p>
-            <ul class="list-disc list-inside text-gray-600 text-left w-fit mx-auto">
-                <li>Fotografi Wisuda</li>
-                <li>Pre-Wisuda & Dokumentasi Kampus</li>
-                <li>Dokumentasi Acara/Kegiatan</li>
-                <li>Fotografi Akad Nikah</li>
-            </ul>
-        </div>
+    <div id="lightbox" class="fixed inset-0 z-[60] hidden">
+        <div class="absolute inset-0 bg-black/80"></div>
+        <button id="closeLb" class="absolute top-4 right-4 text-3xl font-bold text-white/70 hover:text-white">×</button>
+        <button id="prevLb" class="absolute left-3 top-1/2 -translate-y-1/2 px-3 py-2 rounded-full bg-white/10 hover:bg-white/20">◀</button>
+        <button id="nextLb" class="absolute right-3 top-1/2 -translate-y-1/2 px-3 py-2 rounded-full bg-white/10 hover:bg-white/20">▶</button>
+        <img id="lbImg" alt="Preview" class="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 max-h-[90vh] max-w-[92vw] object-contain rounded-xl shadow-2xl" />
     </div>
 
     <script>
-        // Mobile Menu Toggle
-        const menuBtn = document.getElementById('menu-btn');
-        const mobileMenu = document.getElementById('mobile-menu');
-        menuBtn.addEventListener('click', () => {
-            mobileMenu.classList.toggle('hidden');
-        });
+        // Theme Toggle
+        const themeToggle = document.getElementById('themeToggle');
+        const htmlElement = document.documentElement;
+        const moonIcon = document.getElementById('moonIcon');
+        const sunIcon = document.getElementById('sunIcon');
 
-        // Fungsi generic untuk membuka modal
-        function openModal(modalElement) {
-            modalElement.classList.remove('hidden');
-            setTimeout(() => {
-                modalElement.classList.add('active'); // Memicu transisi CSS
-            }, 10);
+        // Set initial theme based on localStorage or system preference
+        const savedTheme = localStorage.getItem('theme');
+        if (savedTheme === 'light') {
+            htmlElement.classList.add('light');
+            moonIcon.classList.add('hidden');
+            sunIcon.classList.remove('hidden');
+        } else if (savedTheme === 'dark') {
+            htmlElement.classList.remove('light');
+            moonIcon.classList.remove('hidden');
+            sunIcon.classList.add('hidden');
+        } else if (window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches) {
+            // System prefers light theme
+            htmlElement.classList.add('light');
+            moonIcon.classList.add('hidden');
+            sunIcon.classList.remove('hidden');
+        } else {
+            // Default to dark theme if no preference
+            htmlElement.classList.remove('light');
+            moonIcon.classList.remove('hidden');
+            sunIcon.classList.add('hidden');
         }
 
-        // Fungsi generic untuk menutup modal
-        function closeModal(modalElement) {
-            modalElement.classList.remove('active');
-            setTimeout(() => {
-                modalElement.classList.add('hidden');
-            }, 300);
-        }
-
-        // Logika untuk Modal Gambar
-        const imageModal = document.getElementById('image-modal');
-        const modalImg = document.getElementById('modal-img');
-        const closeImageModalBtn = document.getElementById('close-image-modal');
-        const galleryItems = document.querySelectorAll('.gallery-item');
-
-        galleryItems.forEach(item => {
-            item.addEventListener('click', () => {
-                modalImg.src = item.src;
-                openModal(imageModal);
-            });
-        });
-
-        closeImageModalBtn.addEventListener('click', () => closeModal(imageModal));
-
-        // MENUTUP MODAL SAAT KLIK AREA LUAR
-        imageModal.addEventListener('click', (e) => {
-            if (e.target === imageModal) {
-                closeModal(imageModal);
+        themeToggle?.addEventListener('click', () => {
+            htmlElement.classList.toggle('light');
+            if (htmlElement.classList.contains('light')) {
+                localStorage.setItem('theme', 'light');
+                moonIcon.classList.add('hidden');
+                sunIcon.classList.remove('hidden');
+            } else {
+                localStorage.setItem('theme', 'dark');
+                moonIcon.classList.remove('hidden');
+                sunIcon.classList.add('hidden');
             }
         });
 
-        // MENUTUP MODAL SAAT KLIK FOTONYA LANGSUNG
-        modalImg.addEventListener('click', () => closeModal(imageModal));
+        // Dynamic header background for scrolled state
+        function updateHeaderBackground() {
+            const rgb = getComputedStyle(document.documentElement).getPropertyValue('--bg').match(/\d+/g).join(',');
+            document.documentElement.style.setProperty('--bg-rgb', rgb);
+        }
+        updateHeaderBackground(); // Initial call
+        new MutationObserver(updateHeaderBackground).observe(htmlElement, { attributes: true, attributeFilter: ['class'] });
 
-        // Logika untuk Modal Tentang
-        const aboutModal = document.getElementById('about-modal');
-        const aboutLink = document.getElementById('about-link');
-        const aboutLinkMobile = document.getElementById('about-link-mobile');
-        const closeAboutModalBtn = document.getElementById('close-about-modal');
+        // navbar shrink
+        const header = document.querySelector('header');
+        const mobileMenu = document.getElementById('mobileMenu');
+        const navBtn = document.getElementById('navBtn');
+        const menuIcon = document.getElementById('menuIcon');
+        const closeIcon = document.getElementById('closeIcon');
 
-        const openAboutModalHandler = (e) => {
-            e.preventDefault();
-            openModal(aboutModal);
+        window.addEventListener('scroll', () => {
+            header.classList.toggle('is-scrolled', window.scrollY > 8);
+        });
+
+        navBtn?.addEventListener('click', () => {
+            const isMenuOpen = mobileMenu.classList.toggle('hidden');
+            mobileMenu.classList.toggle('open', !isMenuOpen);
+            menuIcon.classList.toggle('hidden', !isMenuOpen);
+            closeIcon.classList.add('hidden', isMenuOpen);
+        });
+
+        mobileMenu?.querySelectorAll('a').forEach(a => a.addEventListener('click', () => {
             mobileMenu.classList.add('hidden');
-        };
+            mobileMenu.classList.remove('open');
+            menuIcon.classList.remove('hidden');
+            closeIcon.classList.add('hidden');
+        }));
 
-        aboutLink.addEventListener('click', openAboutModalHandler);
-        aboutLinkMobile.addEventListener('click', openAboutModalHandler);
+        // reveal on scroll
+        const observe = new IntersectionObserver((entries) => {
+            entries.forEach(e => {
+                if (e.isIntersecting) e.target.classList.add('show');
+            });
+        }, {
+            threshold: .12
+        });
+        document.querySelectorAll('.reveal').forEach(el => observe.observe(el));
 
-        closeAboutModalBtn.addEventListener('click', () => closeModal(aboutModal));
-        aboutModal.addEventListener('click', (e) => {
-            if (e.target === aboutModal) {
-                closeModal(aboutModal);
-            }
+        // filter grid
+        const btns = document.querySelectorAll('.filter-btn');
+        const cards = document.querySelectorAll('.image-card');
+        btns.forEach(btn => btn.addEventListener('click', () => {
+            const cat = btn.dataset.filter;
+            btns.forEach(b => b.classList.remove('bg-[var(--filter-bg)]'));
+            btn.classList.add('bg-[var(--filter-bg)]');
+            cards.forEach(c => {
+                const show = (cat === 'all') || c.dataset.cat === cat;
+                c.classList.toggle('hidden', !show);
+            });
+        }));
+
+        // lightbox
+        const lightbox = document.getElementById('lightbox');
+        const lbImg = document.getElementById('lbImg');
+        const closeLb = document.getElementById('closeLb');
+        const prevLb = document.getElementById('prevLb');
+        const nextLb = document.getElementById('nextLb');
+
+        // collect order of all images for navigation
+        const images = [...document.querySelectorAll('.image-card img')];
+        let idx = 0;
+
+        function openLb(i) {
+            idx = i;
+            lbImg.src = images[idx].src;
+            lightbox.classList.remove('hidden');
+        }
+
+        function close() {
+            lightbox.classList.add('hidden');
+        }
+
+        function next() {
+            idx = (idx + 1) % images.length;
+            lbImg.src = images[idx].src;
+        }
+
+        function prev() {
+            idx = (idx - 1 + images.length) % images.length;
+            lbImg.src = images[idx].src;
+        }
+
+        images.forEach((img, i) => img.addEventListener('click', () => openLb(i)));
+        closeLb.addEventListener('click', close);
+        nextLb.addEventListener('click', next);
+        prevLb.addEventListener('click', prev);
+        lightbox.addEventListener('click', (e) => {
+            if (e.target === lightbox) close();
+        });
+        document.addEventListener('keydown', (e) => {
+            if (lightbox.classList.contains('hidden')) return;
+            if (e.key === 'Escape') close();
+            if (e.key === 'ArrowRight') next();
+            if (e.key === 'ArrowLeft') prev();
         });
     </script>
-
 </body>
-
 </html>
